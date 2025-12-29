@@ -84,7 +84,7 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop Nav */}
-        <nav className="hidden lg:flex items-center gap-2 text-sm font-medium">
+        <nav className="mx-4 hidden lg:flex items-center gap-2 text-sm font-medium">
           {navItems.map((item, i) => {
             const Icon = item.icon
             const isActive =
