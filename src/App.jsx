@@ -13,6 +13,7 @@ import ScrollToTop from "@/components/ScrollToTop";
 import EmergencyDetail from "@/pages/EmergencyDetail"; // or EmergencyDetail.jsx
 import DiseaseDetails from "@/pages/DiseaseDetails"; // or DiseaseDetails.jsx
 import Assessment from "@/pages/Assessment"; // or Assessment.jsx
+import AssessmentResult from "@/pages/AssessmentResult"; // or AssessmentResult.jsx
 
 export default function App() {
   return (
@@ -31,6 +32,7 @@ export default function App() {
         <Route path="/emergency/:slug" element={<EmergencyDetail />} />
         <Route path="/assessments" element={<MyAssessments />} />
         <Route path="/assessment/:disease" element={<Assessment />} />
+        <Route path="/assessment-result" element={<AssessmentResult />} />
       </Routes>
       <EmergencyBar />
     </BrowserRouter>
