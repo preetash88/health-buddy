@@ -200,7 +200,7 @@ export default function Emergency() {
 
                   <button
                     onClick={(ev) => ev.stopPropagation()}
-                    className="mt-auto w-full py-2 rounded-lg text-sm font-medium
+                    className="mt-auto w-full py-2 rounded-lg text-sm font-medium cursor-pointer
                                border border-gray-200 transition-all duration-300
                                group-hover:bg-red-600 group-hover:text-white"
                   >
