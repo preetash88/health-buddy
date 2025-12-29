@@ -3,13 +3,12 @@ import {
   Search,
   Hospital,
   Stethoscope,
-  Building2,
+  Building,
   Ambulance,
   Pill,
   Microscope,
   Eye,
-  Tooth,
-  Baby,
+  Heart,
   AlertTriangle,
 } from "lucide-react";
 
@@ -81,12 +80,12 @@ export default function FindClinics() {
             onClick={() => openMaps("Clinics")}
           />
           <QuickCard
-            icon={<Building2 />}
+            icon={<Building />}
             label="Government Hospitals"
             onClick={() => openMaps("Government hospital")}
           />
           <QuickCard
-            icon={<Building2 />}
+            icon={<Building />}
             label="Primary Health Centers"
             onClick={() => openMaps("Primary health center")}
           />
@@ -111,12 +110,12 @@ export default function FindClinics() {
             onClick={() => openMaps("Eye clinic")}
           />
           <QuickCard
-            icon={<Tooth />}
+            icon={<Stethoscope />}
             label="Dental Clinics"
             onClick={() => openMaps("Dental clinic")}
           />
           <QuickCard
-            icon={<Baby />}
+            icon={<Heart />}
             label="Maternity Hospitals"
             onClick={() => openMaps("Maternity hospital")}
           />
