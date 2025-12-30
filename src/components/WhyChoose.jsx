@@ -17,7 +17,7 @@ export default function WhyChoose() {
 
         {/* Left content */}
         <div>
-          <span className="inline-block mb-4 px-4 py-1 text-xs font-medium rounded-full bg-blue-50 text-primary">
+          <span className="inline-block mb-4 px-4 py-1 text-xs font-semibold rounded-lg bg-blue-50 text-primary shadow-2xl border-blue-200 hover:bg-blue-200 transition">
             Trusted Healthcare
           </span>
 
