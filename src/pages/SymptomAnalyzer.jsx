@@ -23,8 +23,40 @@ export default function SymptomAnalyzer() {
   const charCount = text.trim().length;
   const MIN_CHARS = 30;
 
+  /* ---------- Production-level input validation ---------- */
+  const isMeaningfulInput = (input) => {
+    const words = input.trim().split(/\s+/);
+
+    if (words.length < 4) return false;
+
+    const hasMedicalKeyword = Object.keys(rules.symptomScores).some((k) =>
+      input.includes(k)
+    );
+
+    const onlyLetters = /^[a-z\s]+$/i.test(input);
+    const hasVowels = /[aeiou]/i.test(input);
+
+    return hasMedicalKeyword && hasVowels && onlyLetters;
+  };
+
   const analyzeSymptoms = () => {
     if (!text.trim() || charCount < MIN_CHARS) return;
+
+    /* ---------- INVALID INPUT → SIMPLE ORANGE WARNING ---------- */
+    if (!isMeaningfulInput(text.toLowerCase())) {
+      setResult({
+        isInvalidInput: true,
+        color: "yellow",
+        label: "Input unclear",
+        description: "We couldn’t understand your symptoms clearly.",
+        conditions: [],
+      });
+
+      // 🔐 FAIL-SAFE: clear invalid/random input
+      setText("");
+
+      return;
+    }
 
     setLoading(true);
     setResult(null);
@@ -46,11 +78,31 @@ export default function SymptomAnalyzer() {
 
       setResult({
         ...rules.urgencyLevels[urgency],
+        isInvalidInput: false,
         conditions: suggestedConditions[urgency],
       });
 
       setLoading(false);
     }, 1500);
+  };
+
+  const handleTextChange = (e) => {
+    setText(e.target.value);
+    e.target.style.height = "auto";
+    e.target.style.height = `${e.target.scrollHeight}px`;
+  };
+
+  const handleKeyDown = (e) => {
+    // Desktop: Enter submits when valid
+    if (
+      e.key === "Enter" &&
+      !e.shiftKey &&
+      !loading &&
+      charCount >= MIN_CHARS
+    ) {
+      e.preventDefault();
+      analyzeSymptoms();
+    }
   };
 
   return (
@@ -83,7 +135,7 @@ export default function SymptomAnalyzer() {
         </div>
 
         {/* Input */}
-        <div className="mt-10 bg-white rounded-2xl shadow-lg border p-6">
+        <div className="mt-8 bg-white rounded-2xl shadow-lg border p-4 sm:p-6">
           <div className="flex items-center gap-2 mb-2">
             <Sparkles className="w-5 h-5 text-purple-500" />
             <h2 className="font-semibold text-gray-900">
@@ -91,15 +143,33 @@ export default function SymptomAnalyzer() {
             </h2>
           </div>
 
-          <textarea
-            rows={5}
-            value={text}
-            onChange={(e) => setText(e.target.value)}
-            className="w-full rounded-xl border border-gray-200 p-4 text-sm focus:outline-none focus:ring-2 focus:ring-purple-400 resize-none"
-            placeholder="Example: headache and fever since last 2 days"
-          />
+          <div className="relative">
+            <textarea
+              rows={2}
+              value={text}
+              onChange={handleTextChange}
+              onKeyDown={handleKeyDown} // ✅ ADD THIS
+              className="w-full rounded-xl border border-gray-200 px-4 py-3 pr-14 text-sm focus:outline-none focus:ring-2 focus:ring-purple-400 resize-none overflow-hidden transition"
+              placeholder="Example: headache and fever since last 2 days"
+            />
+
+            {/* Clear button */}
+            {charCount >= MIN_CHARS && (
+              <button
+                type="button"
+                onClick={() => {
+                  setText("");
+                  setResult(null);
+                }}
+                className="absolute top-2 right-2 px-2 py-1 text-xs rounded-md bg-gray-200 text-gray-700 hover:bg-gray-300 transition"
+              >
+                Clear
+              </button>
+            )}
+          </div>
+
           <p
-            className={`mt-2 text-sm ${
+            className={`mt-1 text-xs ${
               charCount < MIN_CHARS ? "text-red-500" : "text-green-600"
             }`}
           >
@@ -110,12 +180,12 @@ export default function SymptomAnalyzer() {
             onClick={analyzeSymptoms}
             disabled={loading || charCount < MIN_CHARS}
             className={`mt-6 w-full flex items-center justify-center gap-2 py-3 rounded-xl font-medium transition-all
-    ${
-      loading || charCount < MIN_CHARS
-        ? "bg-gray-100 cursor-not-allowed text-gray-400"
-        : "bg-purple-600 hover:bg-purple-700 text-white cursor-pointer"
-    }
-  `}
+              ${
+                loading || charCount < MIN_CHARS
+                  ? "bg-gray-100 cursor-not-allowed text-gray-400"
+                  : "bg-purple-600 hover:bg-purple-700 text-white cursor-pointer"
+              }
+            `}
           >
             {loading ? "Analyzing..." : "Analyze My Symptoms"}
             {!loading && <Search className="w-4 h-4" />}
@@ -125,85 +195,110 @@ export default function SymptomAnalyzer() {
         {/* RESULTS */}
         {result && (
           <>
-            {/* Urgency */}
-            <div
-              className={`mt-10 rounded-xl border px-5 py-4 flex gap-3
-              ${
-                result.color === "red"
-                  ? "bg-red-50 border-red-200 text-red-700"
-                  : result.color === "yellow"
-                  ? "bg-yellow-50 border-yellow-200 text-yellow-700"
-                  : "bg-green-50 border-green-200 text-green-700"
-              }`}
-            >
-              <AlertCircle className="w-5 h-5 mt-0.5" />
-              <div>
-                <p className="font-semibold">Urgency Level: {result.label}</p>
-                <p className="text-sm mt-1">{result.description}</p>
+            {/* INVALID INPUT → ONLY ORANGE WARNING */}
+            {result.isInvalidInput ? (
+              <div className="mt-10 rounded-xl border border-yellow-200 bg-yellow-50 px-5 py-4 flex gap-3 text-yellow-700">
+                <AlertCircle className="w-5 h-5 mt-0.5" />
+                <div>
+                  <p className="font-semibold">Input unclear</p>
+                  <p className="text-sm mt-1">
+                    We couldn’t understand your symptoms clearly.
+                  </p>
+                </div>
               </div>
-            </div>
-
-            {/* Immediate Advice */}
-            <div className="mt-6 rounded-xl border border-blue-200 bg-blue-50 px-5 py-4 flex gap-3">
-              <Lightbulb className="w-5 h-5 text-blue-600 mt-0.5" />
-              <div>
-                <p className="font-semibold text-blue-800">Immediate Advice</p>
-                <p className="text-sm text-blue-700 mt-1">{result.advice}</p>
-              </div>
-            </div>
-
-            {/* Suggested Conditions */}
-            <h3 className="mt-10 font-bold text-lg text-gray-900">
-              Suggested Conditions to Check
-            </h3>
-
-            <div className="mt-4 space-y-4">
-              {result.conditions.map((c, i) => (
+            ) : (
+              <>
+                {/* Urgency */}
                 <div
-                  key={i}
-                  className="bg-white border rounded-xl p-5 shadow-sm flex justify-between gap-4 cursor-pointer hover:shadow-xl transition"
+                  className={`mt-10 rounded-xl border px-5 py-4 flex gap-3
+                    ${
+                      result.color === "red"
+                        ? "bg-red-50 border-red-200 text-red-700"
+                        : result.color === "yellow"
+                        ? "bg-yellow-50 border-yellow-200 text-yellow-700"
+                        : "bg-green-50 border-green-200 text-green-700"
+                    }`}
                 >
+                  <AlertCircle className="w-5 h-5 mt-0.5" />
                   <div>
-                    <p className="font-semibold text-gray-900">
-                      {c.name}
-                      <span className="ml-2 text-xs px-2 py-0.5 border rounded bg-gray-200">
-                        {c.tag}
-                      </span>
+                    <p className="font-semibold">
+                      Urgency Level: {result.label}
                     </p>
-                    <p className="text-sm text-gray-600 mt-1">
-                      {c.description}
+                    <p className="text-sm mt-1">{result.description}</p>
+                  </div>
+                </div>
+
+                {/* Immediate Advice */}
+                <div className="mt-6 rounded-xl border border-blue-200 bg-blue-50 px-5 py-4 flex gap-3">
+                  <Lightbulb className="w-5 h-5 text-blue-600 mt-0.5" />
+                  <div>
+                    <p className="font-semibold text-blue-800">
+                      Immediate Advice
+                    </p>
+                    <p className="text-sm text-blue-700 mt-1">
+                      {result.advice}
                     </p>
                   </div>
+                </div>
+
+                {/* Suggested Conditions */}
+                <h3 className="mt-10 font-bold text-lg text-gray-900">
+                  Suggested Conditions to Check
+                </h3>
+
+                <div className="mt-4 space-y-4">
+                  {result.conditions.map((c, i) => (
+                    <div
+                      key={i}
+                      className="bg-white border rounded-xl p-4 sm:p-5 shadow-sm flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 hover:shadow-xl transition"
+                    >
+                      <div>
+                        <div className="flex flex-wrap items-center gap-2">
+                          <p className="font-semibold text-gray-900">
+                            {c.name}
+                          </p>
+                          <span className="text-xs px-2 py-0.5 border rounded bg-gray-200">
+                            {c.tag}
+                          </span>
+                        </div>
+                        <p className="text-sm text-gray-600 mt-1">
+                          {c.description}
+                        </p>
+                      </div>
+
+                      <button
+                        onClick={() => navigate("/symptom-checker")}
+                        className="bg-blue-600 text-white px-3 py-1.5 rounded-lg text-sm hover:bg-blue-700"
+                      >
+                        Check <ArrowRight size={14} />
+                      </button>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Footer */}
+                <div className="mt-6 text-xs text-gray-500 flex items-center gap-2">
+                  <Info size={14} />
+                  This is not a diagnosis. Please consult a healthcare
+                  professional.
+                </div>
+
+                <div className="mt-6 flex gap-4">
                   <button
                     onClick={() => navigate("/symptom-checker")}
-                    className="h-fit flex items-center gap-1 cursor-pointer bg-blue-600 text-white px-3 py-1.5 rounded-lg text-sm hover:bg-blue-700"
+                    className="flex-1 bg-black text-white py-2.5 rounded-lg"
                   >
-                    Check <ArrowRight size={14} />
+                    Go to Symptom Checker →
+                  </button>
+                  <button
+                    onClick={() => navigate("/clinics")}
+                    className="flex-1 border py-2.5 rounded-lg"
+                  >
+                    Find Nearby Clinics
                   </button>
                 </div>
-              ))}
-            </div>
-
-            {/* Footer */}
-            <div className="mt-6 text-xs text-gray-500 flex items-center gap-2">
-              <Info size={14} />
-              This is not a diagnosis. Please consult a healthcare professional.
-            </div>
-
-            <div className="mt-6 flex gap-4">
-              <button
-                onClick={() => navigate("/symptom-checker")}
-                className="flex-1 bg-black text-white py-2.5 rounded-lg hover:bg-gray-900 cursor-pointer"
-              >
-                Go to Symptom Checker →
-              </button>
-              <button
-                onClick={() => navigate("/clinics")}
-                className="flex-1 border py-2.5 rounded-lg hover:bg-gray-100 cursor-pointer"
-              >
-                Find Nearby Clinics
-              </button>
-            </div>
+              </>
+            )}
           </>
         )}
       </div>

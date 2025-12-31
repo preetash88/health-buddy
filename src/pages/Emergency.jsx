@@ -12,8 +12,7 @@ import {
 
 /* ---------- Helpers ---------- */
 
-const toSlug = (title) =>
-  title.toLowerCase().replace(/\s+/g, "-");
+const toSlug = (title) => title.toLowerCase().replace(/\s+/g, "-");
 
 /* ---------- Data ---------- */
 
@@ -87,24 +86,21 @@ const emergencies = [
   {
     title: "CPR (Cardiopulmonary Resuscitation)",
     subtitle: "Cardiac Arrest",
-    description:
-      "Immediate CPR can double or triple chances of survival.",
+    description: "Immediate CPR can double or triple chances of survival.",
     urgency: "critical",
     icon: HeartPulse,
   },
   {
     title: "Choking Emergency",
     subtitle: "Airway Obstruction",
-    description:
-      "Quick action with Heimlich maneuver can save a life.",
+    description: "Quick action with Heimlich maneuver can save a life.",
     urgency: "critical",
     icon: Wind,
   },
   {
     title: "Severe Allergic Reaction (Anaphylaxis)",
     subtitle: "Anaphylactic Shock",
-    description:
-      "Requires immediate epinephrine injection and emergency care.",
+    description: "Requires immediate epinephrine injection and emergency care.",
     urgency: "critical",
     icon: Zap,
   },
@@ -118,7 +114,6 @@ export default function Emergency() {
   return (
     <main className="min-h-screen bg-gradient-to-b from-slate-50 to-white pt-16 pb-32">
       <div className="max-w-7xl mx-auto px-4">
-
         {/* Icon */}
         <div className="flex justify-center mb-6">
           <div className="w-16 h-16 rounded-2xl bg-red-500 flex items-center justify-center shadow-lg">
@@ -199,10 +194,13 @@ export default function Emergency() {
                   </p>
 
                   <button
-                    onClick={(ev) => ev.stopPropagation()}
+                    onClick={(ev) => {
+                      ev.stopPropagation();
+                      navigate(`/emergency/${slug}`);
+                    }}
                     className="mt-auto w-full py-2 rounded-lg text-sm font-medium cursor-pointer
-                               border border-gray-200 transition-all duration-300
-                               group-hover:bg-red-600 group-hover:text-white"
+             border border-gray-200 transition-all duration-300
+             group-hover:bg-red-600 group-hover:text-white"
                   >
                     View Emergency Guide →
                   </button>
@@ -211,7 +209,6 @@ export default function Emergency() {
             );
           })}
         </div>
-
       </div>
     </main>
   );

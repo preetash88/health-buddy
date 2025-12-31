@@ -40,9 +40,7 @@ export default function Diseases() {
     const matchesCategory =
       activeCategory === "All Diseases" || d.category === activeCategory;
 
-    const matchesSearch = d.name
-      .toLowerCase()
-      .includes(search.toLowerCase());
+    const matchesSearch = d.name.toLowerCase().includes(search.toLowerCase());
 
     return matchesCategory && matchesSearch;
   });
@@ -50,7 +48,6 @@ export default function Diseases() {
   return (
     <main className="min-h-screen bg-gradient-to-b from-slate-50 to-white pt-16 pb-32">
       <div className="max-w-7xl mx-auto px-4">
-
         {/* Icon */}
         <div className="flex justify-center mb-6">
           <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center shadow-lg">
@@ -81,34 +78,61 @@ export default function Diseases() {
         </div>
 
         {/* Categories */}
-        <div className="mt-8 bg-gray-100 rounded-xl p-2 grid grid-cols-6 gap-y-3 gap-x-6 text-center overflow-x-auto">
-          {categories.map((cat) => {
-            const count =
-              cat === "All Diseases"
-                ? diseasesHub.length
-                : categoryCounts[cat] || 0;
+        {/* Categories */}
+        <div className="mt-8">
+          <div
+            className="
+      flex gap-2
+      overflow-x-auto
+      pb-2
+      -mx-4 px-4
+      sm:grid sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6
+      sm:gap-3 sm:overflow-visible
+    "
+          >
+            {categories.map((cat) => {
+              const count =
+                cat === "All Diseases"
+                  ? diseasesHub.length
+                  : categoryCounts[cat] || 0;
 
-            return (
-              <button
-                key={cat}
-                onClick={() => setActiveCategory(cat)}
-                className={`
-                  px-4 py-2 rounded-lg text-sm font-medium transition
-                  flex items-center justify-center gap-2
-                  ${
-                    activeCategory === cat
-                      ? "bg-white border border-black shadow-sm"
-                      : "text-gray-600 hover:bg-white"
-                  }
-                `}
-              >
-                <span>{cat}</span>
-                <span className="text-xs bg-gray-200 px-2 py-0.5 rounded-full">
-                  {count}
-                </span>
-              </button>
-            );
-          })}
+              return (
+                <button
+                  key={cat}
+                  onClick={() => setActiveCategory(cat)}
+                  className={`
+            whitespace-nowrap
+            shrink-0
+            px-4 py-2
+            rounded-xl cursor-pointer
+            text-sm font-medium
+            flex items-center gap-2
+            transition
+            ${
+              activeCategory === cat
+                ? "bg-black text-white shadow-sm"
+                : "bg-white text-gray-700 border border-gray-200 hover:bg-gray-100"
+            }
+          `}
+                >
+                  <span>{cat}</span>
+
+                  <span
+                    className={`
+              text-xs px-2 py-0.5 rounded-full
+              ${
+                activeCategory === cat
+                  ? "bg-white/20 text-white"
+                  : "bg-gray-200 text-gray-700"
+              }
+            `}
+                  >
+                    {count}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
         </div>
 
         {/* Disease Cards */}
@@ -145,9 +169,7 @@ export default function Diseases() {
                 </h3>
 
                 {/* Description */}
-                <p className="text-sm text-gray-600 mb-4">
-                  {d.description}
-                </p>
+                <p className="text-sm text-gray-600 mb-4">{d.description}</p>
 
                 {/* Symptoms */}
                 {d.symptoms?.length > 0 && (

@@ -82,23 +82,40 @@ export default function SymptomChecker() {
         </div>
 
         {/* Categories */}
-        <div className="mt-8 bg-gray-100 rounded-xl p-2 grid grid-cols-6 gap-y-3 gap-x-6 text-center cursor-pointer overflow-x-auto">
-          {categories.map((cat) => (
-            <button
-              key={cat}
-              onClick={() => setActiveCategory(cat)}
-              className={`
-                px-4 py-2 rounded-lg text-sm font-medium transition cursor-pointer
-                ${
-                  activeCategory === cat
-                    ? "bg-white border border-black shadow-sm"
-                    : "text-gray-600 hover:bg-white"
-                }
-              `}
-            >
-              {cat}
-            </button>
-          ))}
+        {/* Categories */}
+        <div className="mt-8">
+          <div
+            className="
+      flex gap-2
+      overflow-x-auto
+      pb-2
+      -mx-4 px-4
+      sm:grid sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6
+      sm:gap-3 sm:overflow-visible
+    "
+          >
+            {categories.map((cat) => (
+              <button
+                key={cat}
+                onClick={() => setActiveCategory(cat)}
+                className={`
+          whitespace-nowrap
+          shrink-0
+          px-4 py-2
+          rounded-xl cursor-pointer
+          text-sm font-medium
+          transition
+          ${
+            activeCategory === cat
+              ? "bg-black text-white shadow-sm"
+              : "bg-white text-gray-700 border border-gray-200 hover:bg-gray-100"
+          }
+        `}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
         </div>
 
         {/* Cards */}

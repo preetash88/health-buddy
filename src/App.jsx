@@ -8,7 +8,6 @@ import Diseases from "@/pages/Diseases"; // or Diseases.jsx
 import Prevention from "@/pages/Prevention"; // or Prevention.jsx
 import FindClinics from "@/pages/FindClinics"; // or FindClinics.jsx
 import Emergency from "@/pages/Emergency"; // or Emergency.jsx
-import MyAssessments from "@/pages/MyAssessment"; // or MyAssessment.jsx
 import ScrollToTop from "@/components/ScrollToTop";
 import EmergencyDetail from "@/pages/EmergencyDetail"; // or EmergencyDetail.jsx
 import DiseaseDetails from "@/pages/DiseaseDetails"; // or DiseaseDetails.jsx
@@ -30,7 +29,6 @@ export default function App() {
         <Route path="/clinics" element={<FindClinics />} />
         <Route path="/emergency" element={<Emergency />} />
         <Route path="/emergency/:slug" element={<EmergencyDetail />} />
-        <Route path="/assessments" element={<MyAssessments />} />
         <Route path="/assessment/:disease" element={<Assessment />} />
         <Route path="/assessment-result" element={<AssessmentResult />} />
       </Routes>

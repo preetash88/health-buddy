@@ -12,7 +12,6 @@ export default function AssessmentResult() {
   const location = useLocation();
   const navigate = useNavigate();
 
-  // Safety guard
   if (!location.state) {
     navigate("/symptom-checker");
     return null;
@@ -63,19 +62,19 @@ export default function AssessmentResult() {
       <div className="max-w-4xl mx-auto px-4 print-area">
         <div
           className="
-      bg-white
-      rounded-2xl
-      border border-gray-300
-      shadow-[0_20px_45px_-15px_rgba(0,0,0,0.25)]
-      overflow-hidden
-    "
+            bg-white
+            rounded-2xl
+            border border-gray-300
+            shadow-sm sm:shadow-[0_20px_45px_-15px_rgba(0,0,0,0.25)]
+            overflow-hidden
+          "
         >
           {/* Header */}
           <div
-            className={`${t.bg} border ${t.border} p-6 flex items-start justify-between`}
+            className={`${t.bg} border ${t.border} p-4 sm:p-6 flex items-start justify-between`}
           >
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">
+              <h1 className="text-xl sm:text-2xl font-bold text-gray-900">
                 {disease} Assessment
               </h1>
               <p className="text-sm text-gray-700 mt-1">
@@ -83,28 +82,25 @@ export default function AssessmentResult() {
               </p>
             </div>
 
-            <Check className={`w-10 h-10 ${t.icon} font-extrabold`} />
+            <Check className={`w-20 h-20 font-bold sm:w-10 sm:h-10 ${t.icon}`} />
           </div>
 
           {/* Risk Card */}
           <div
-            className={`mx-8 mt-8 rounded-2xl border ${t.border} ${t.bg} p-6`}
+            className={`mx-2 sm:mx-6 mt-6 sm:mt-8 rounded-2xl border ${t.border} ${t.bg} p-4 sm:p-6`}
           >
-            <div className="flex items-center justify-between">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
               <div>
                 <h2 className="font-bold text-lg text-gray-900">
                   Risk Assessment
                 </h2>
-                <p className={`${t.text} mt-2 text-sm font-semibold`}>
+                <p className={`${t.text} mt-1 text-sm font-semibold`}>
                   Score: {score} points
                 </p>
               </div>
 
               <span
-                className={`px-4 py-1.5 rounded-lg text-sm ${t.bg}
-    p-6
-    ring-2 ring-offset-2 ${t.border}
-    shadow-[inset_0_1px_0_rgba(255,255,255,0.6)] font-semibold ${t.badge}`}
+                className={`inline-block px-4 py-2 rounded-lg text-sm font-semibold ${t.badge} ring-2 ring-offset-2 ${t.border}`}
               >
                 {riskLevel}
               </span>
@@ -112,7 +108,7 @@ export default function AssessmentResult() {
           </div>
 
           {/* Recommendations */}
-          <div className="mx-10 mt-10">
+          <div className="px-4 sm:px-10 mt-8 sm:mt-10">
             <div className="flex items-center gap-2 mb-4">
               <Heart className="w-5 h-5 text-blue-600" />
               <h3 className="font-bold text-lg text-gray-900">
@@ -147,7 +143,7 @@ export default function AssessmentResult() {
           </div>
 
           {/* Prevention Tips */}
-          <div className="mx-10 mt-10">
+          <div className="px-4 sm:px-10 mt-8 sm:mt-10">
             <h3 className="font-bold text-lg text-gray-900 mb-4">
               Prevention Tips
             </h3>
@@ -162,7 +158,7 @@ export default function AssessmentResult() {
           </div>
 
           {/* Next Steps */}
-          <div className="mx-8 mt-8 rounded-2xl border border-blue-200 bg-blue-50 p-5 flex gap-3">
+          <div className="mx-2 sm:mx-6 mt-8 rounded-2xl border border-blue-200 bg-blue-50 p-5 flex gap-3">
             <Info className="w-5 h-5 text-blue-600 mt-0.5" />
             <div>
               <p className="font-medium text-blue-700 mb-1">Next Steps</p>
@@ -174,47 +170,71 @@ export default function AssessmentResult() {
             </div>
           </div>
 
-          <p className="mx-10 mt-10 text-xs text-gray-500 text-center mb-4">
+          {/* Disclaimer */}
+          <p className="px-4 sm:px-10 mt-8 text-xs text-gray-500 text-center">
             Disclaimer: This assessment is for informational purposes only and
-            does not constitute medical advice, diagnosis, or treatment. Always
-            consult a qualified healthcare professional for medical concerns.
+            does not constitute medical advice, diagnosis, or treatment.
           </p>
 
           {/* Actions */}
-          <div className="mx-8 mt-4 mb-8 grid grid-cols-1 sm:grid-cols-3 gap-4 pdf-hide">
+          {/* Actions */}
+          <div className="px-4 sm:px-8 mt-6 mb-8 grid grid-cols-1 sm:grid-cols-3 gap-4 pdf-hide">
+            {/* New Assessment */}
             <button
               onClick={() => navigate("/symptom-checker")}
               className="
-              flex items-center justify-center gap-2
-              py-2 rounded-xl border cursor-pointer
-              font-medium text-gray-700
-              hover:bg-gray-200 transition
-            "
+      min-h-[56px]
+      touch-manipulation
+      flex items-center justify-center gap-2
+      rounded-xl border
+      bg-white
+      font-semibold text-gray-700
+      shadow-md
+      active:scale-[0.97] active:shadow-sm
+      hover:bg-gray-200
+      transition
+    "
             >
               <ArrowLeft className="w-4 h-4" />
               New Assessment
             </button>
+
+            {/* Download PDF */}
             <button
               onClick={() => window.print()}
               className="
-    flex items-center justify-center gap-2
-    py-3 rounded-xl border cursor-pointer
-    font-medium transition
-    bg-white hover:bg-gray-200
-  "
+      min-h-[56px]
+      touch-manipulation
+      flex items-center justify-center gap-2
+      rounded-xl border
+      bg-white
+      font-semibold text-gray-800
+      shadow-md
+      active:scale-[0.97] active:shadow-sm
+      hover:bg-gray-200
+      transition
+    "
             >
               Download Report as PDF
               <Download className="w-4 h-4" />
             </button>
 
+            {/* Find Clinics – Primary CTA */}
             <button
               onClick={() => navigate("/clinics")}
               className="
-              flex items-center justify-center gap-2
-              py-3 rounded-xl cursor-pointer
-              bg-black text-white font-medium
-              hover:bg-white transition hover:text-black border border-black
-            "
+      min-h-[56px]
+      touch-manipulation
+      flex items-center justify-center gap-2
+      rounded-xl
+      bg-black text-white
+      font-semibold
+      shadow-lg
+      active:scale-[0.96] active:shadow-md
+      hover:bg-white hover:text-black
+      border border-black
+      transition
+    "
             >
               Find Nearby Clinics
               <ArrowRight className="w-4 h-4" />
