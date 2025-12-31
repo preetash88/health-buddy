@@ -54,7 +54,7 @@ export default function SymptomAnalyzer() {
   };
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-slate-50 to-white pt-24 pb-32">
+    <main className="min-h-screen bg-gradient-to-b from-slate-50 to-white pt-16 pb-32">
       <div className="max-w-3xl mx-auto px-4">
         {/* Header */}
         <div className="flex justify-center mb-6">
@@ -67,13 +67,13 @@ export default function SymptomAnalyzer() {
           Symptom Analyzer
         </h1>
 
-        <p className="text-center text-gray-600 mt-3 text-lg">
+        <p className="text-center text-gray-600 mt-2 text-lg">
           Describe how you're feeling and we'll suggest which conditions to
           check
         </p>
 
         {/* How it works */}
-        <div className="mt-8 rounded-xl border border-blue-200 bg-blue-50 px-5 py-4 flex gap-3">
+        <div className="mt-8 rounded-xl border border-blue-200 bg-blue-50 px-5 py-3 flex gap-3">
           <Info className="w-5 h-5 text-blue-600 mt-0.5" />
           <p className="text-blue-800 text-sm">
             <span className="font-medium block mb-1">How it works</span>

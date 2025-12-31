@@ -19,7 +19,7 @@ export default function HeroJourney() {
       />
 
       {/* Content */}
-      <div className="relative z-10 max-w-5xl mx-auto px-6 py-28 text-center text-white">
+      <div className="relative z-10 max-w-5xl mx-auto px-6 py-20 text-center text-white">
         {/* Badge */}
         <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-white/20 text-sm mb-6">
           ✨ AI-Powered Healthcare Companion
