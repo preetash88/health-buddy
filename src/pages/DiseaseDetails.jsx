@@ -27,29 +27,30 @@ export default function DiseaseDetails() {
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-slate-50 to-white pt-24 pb-32 font-normal">
-      <div className="max-w-5xl mx-auto px-4">
+      <div className="max-w-5xl mx-auto px-4 animate-fadeIn">
+
         {/* Back */}
         <Link
           to="/diseases"
-          className="flex items-center gap-2 text-sm text-gray-600 hover:text-gray-900 mb-6"
+          className="flex items-center gap-2 text-lg text-gray-500 hover:text-gray-900 font-semibold  hover:font-bold transition-colors duration-200 mb-6"
         >
-          <ArrowLeft className="w-4 h-4" />
+          <ArrowLeft className="w-6 h-6" />
           Back to Diseases
         </Link>
 
-        {/* Hero Image — render ONLY if image_url exists */}
+        {/* Hero Image */}
         {disease.image_url && (
-          <div className="w-full h-56 rounded-2xl overflow-hidden mb-8">
+          <div className="w-full h-56 rounded-2xl overflow-hidden mb-8 shadow-md hover:shadow-xl transition-all duration-300 ease-out">
             <img
               src={disease.image_url}
               alt={disease.name}
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover transition-transform duration-500 ease-out hover:scale-[1.03]"
             />
           </div>
         )}
 
         {/* Category */}
-        <span className="inline-block mb-3 px-3 py-1 rounded-xl text-xs font-semibold bg-black text-white">
+        <span className="inline-flex items-center mb-3 px-4 py-1.5 rounded-full text-xs font-semibold bg-gradient-to-r from-gray-900 to-gray-700 text-white shadow-sm">
           {disease.category}
         </span>
 
@@ -59,18 +60,15 @@ export default function DiseaseDetails() {
         </h1>
 
         {/* Description */}
-        <p className="text-gray-600 max-w-3xl mb-6">{disease.description}</p>
+        <p className="text-gray-600 max-w-3xl mb-6">
+          {disease.description}
+        </p>
 
         {/* CTAs */}
         <div className="flex flex-col sm:flex-row gap-4 mb-10">
           <Link
             to="/symptom-checker"
-            className="
-      flex-1 flex items-center justify-center gap-2
-      px-6 py-3 rounded-xl
-      bg-blue-600 text-white font-medium
-      hover:bg-blue-800 transition
-    "
+            className="flex-1 flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold shadow-md hover:from-blue-700 hover:to-indigo-700 hover:shadow-xl active:scale-[0.97] transition-all duration-300 ease-out"
           >
             <Stethoscope className="w-4 h-4" />
             Take Assessment
@@ -78,12 +76,7 @@ export default function DiseaseDetails() {
 
           <Link
             to="/clinics"
-            className="
-      flex-1 flex items-center justify-center
-      px-6 py-3 rounded-xl
-      border bg-white text-center font-medium
-      hover:bg-gray-200 transition
-    "
+            className="flex-1 flex items-center justify-center px-6 py-3 rounded-xl border border-gray-200 bg-white font-medium text-gray-800 shadow-sm hover:bg-gray-50 hover:shadow-md active:scale-[0.97] transition-all duration-200"
           >
             Find Clinics
           </Link>
@@ -95,7 +88,7 @@ export default function DiseaseDetails() {
             {disease.symptoms.map((s, i) => (
               <li
                 key={i}
-                className="flex items-center gap-2 text-sm text-gray-700"
+                className="flex items-center gap-2 text-sm text-gray-700 hover:text-gray-900 transition-colors duration-200"
               >
                 <span className="w-1.5 h-1.5 bg-blue-500 rounded-full" />
                 {s}
@@ -136,7 +129,7 @@ export default function DiseaseDetails() {
 
         {/* Prevention Tips */}
         {disease.prevention_tips?.length > 0 && (
-          <div className="mt-6 rounded-2xl border border-green-200 bg-green-50 p-6">
+          <div className="mt-6 rounded-2xl border border-green-200 bg-green-50 p-6 shadow-sm hover:shadow-[0_10px_25px_-10px_rgba(34,197,94,0.35)] transition-all duration-300">
             <div className="flex items-center gap-2 mb-4 text-green-700 font-semibold">
               <CheckCircle className="w-5 h-5" />
               Prevention Tips
@@ -158,13 +151,15 @@ export default function DiseaseDetails() {
 
         {/* When to Seek Help */}
         {disease.when_to_seek_help && (
-          <div className="mt-6 rounded-2xl border border-red-200 bg-red-50 p-6">
+          <div className="mt-6 rounded-2xl border border-red-200 bg-red-50 p-6 shadow-sm hover:shadow-[0_10px_25px_-10px_rgba(239,68,68,0.35)] transition-all duration-300">
             <div className="flex items-center gap-2 mb-2 text-red-700 font-semibold">
               <AlertTriangle className="w-5 h-5" />
               When to Seek Medical Help
             </div>
 
-            <p className="text-sm text-red-700">{disease.when_to_seek_help}</p>
+            <p className="text-sm text-red-700">
+              {disease.when_to_seek_help}
+            </p>
           </div>
         )}
       </div>
@@ -175,9 +170,9 @@ export default function DiseaseDetails() {
 /* ---------- Reusable Section Card ---------- */
 function SectionCard({ title, icon, children }) {
   return (
-    <div className="mt-6 rounded-2xl border bg-white p-6">
+    <div className="mt-6 rounded-2xl border border-gray-200 bg-white p-6 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 ease-out">
       <div className="flex items-center gap-2 mb-4 font-semibold text-gray-900">
-        {icon}
+        <span className="text-blue-600">{icon}</span>
         {title}
       </div>
       {children}
