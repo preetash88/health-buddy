@@ -1,0 +1,139 @@
+{
+  "Navbar": {
+    "home": "Home",
+    "symptomAnalyzer": "Symptom Analyzer",
+    "symptomChecker": "Symptom Checker",
+    "diseases": "Diseases",
+    "prevention": "Prevention",
+    "findClinics": "Find Clinics",
+    "emergency": "Emergency",
+    "language": "English",
+    "loading": "Loading…"
+  },
+  "ErrorBoundary": {
+    "title": "Something went wrong.",
+    "message": "Please reload the page or try again after some time.",
+    "reloadButton": "Reload Page"
+  },
+
+  "EmergencyBar": {
+    "title": "Emergency Helplines",
+    "helplines": [
+      {
+        "number": "108",
+        "label": "Ambulance Service"
+      },
+      {
+        "number": "104",
+        "label": "Health Helpline"
+      },
+      {
+        "number": "102",
+        "label": "Medical Emergency"
+      },
+      {
+        "number": "112",
+        "label": "National Emergency Number"
+      }
+    ]
+  },
+  "ScrollToTop": {
+    "tooltip": "Scroll to top"
+  },
+  "HeroJourney": {
+    "badge": "AI-Powered Healthcare Companion",
+    "headingLine1": "Your Health Journey",
+    "headingLine2": "Starts Here",
+    "description": "Empowering rural and underserved communities with accessible healthcare through AI-driven risk assessment, health education, and instant clinic connectivity.",
+    "cta": "Start Health Check"
+  },
+  "HeroStats": {
+    "items": [
+      {
+        "id": "diseases",
+        "value": "50+",
+        "label": "Diseases Covered"
+      },
+      {
+        "id": "healthTips",
+        "value": "200+",
+        "label": "Health Tips"
+      },
+      {
+        "id": "languages",
+        "value": "10+",
+        "label": "Languages"
+      },
+      {
+        "id": "emergency",
+        "value": "10+",
+        "label": "Emergency Guides"
+      }
+    ]
+  },
+
+  "Features": {
+    "sectionTitle": "Complete Healthcare Suite",
+    "sectionDescription": "Everything you need for better health management in one place",
+
+    "items": [
+      {
+        "id": "symptomChecker",
+        "path": "/symptom-checker",
+        "title": "Symptom Checker",
+        "description": "Assess your health with our AI-powered symptom analysis",
+        "action": "Start Assessment"
+      },
+      {
+        "id": "diseaseLibrary",
+        "path": "/diseases",
+        "title": "Disease Library",
+        "description": "Learn about diseases, symptoms, and prevention",
+        "action": "Explore"
+      },
+      {
+        "id": "preventionTips",
+        "path": "/prevention",
+        "title": "Prevention Tips",
+        "description": "Get personalized health and wellness guidance",
+        "action": "View Tips"
+      },
+      {
+        "id": "findClinics",
+        "path": "/clinics",
+        "title": "Find Clinics",
+        "description": "Locate nearby healthcare facilities instantly",
+        "action": "Find Now"
+      },
+      {
+        "id": "emergencyGuide",
+        "path": "/emergency",
+        "title": "Emergency Guide",
+        "description": "Critical first-aid procedures and helplines",
+        "action": "View Guide"
+      }
+    ]
+  },
+
+  "WhyChoose": {
+    "badge": "Trusted Healthcare",
+    "title": "Why Choose HealthBuddy?",
+    "description": "We're on a mission to make quality healthcare accessible to everyone, especially in rural and underserved regions.",
+
+    "points": [
+      "Early disease risk detection",
+      "Expert-verified information",
+      "Privacy-focused design",
+      "Multi-language support",
+      "Free and accessible to all",
+      "Emergency response guidance"
+    ],
+
+    "imageAlt": "Healthcare professional"
+  },
+  "CTASection": {
+    "title": "Take Control of Your Health Today",
+    "subtitle": "Start your health assessment in just 2 minutes",
+    "cta": "Begin Assessment"
+  }
+}
