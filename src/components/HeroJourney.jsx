@@ -1,8 +1,10 @@
-import { Activity } from "lucide-react"
-import { useNavigate } from "react-router-dom"
+import { Activity } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 export default function HeroJourney() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const { t } = useTranslation();
 
   return (
     <section className="relative w-full overflow-hidden">
@@ -22,20 +24,20 @@ export default function HeroJourney() {
       <div className="relative z-10 max-w-5xl mx-auto px-6 py-20 text-center text-white">
         {/* Badge */}
         <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-white/20 text-sm mb-6">
-          ✨ AI-Powered Healthcare Companion
+          ✨ {t("HeroJourney.badge")}
         </div>
 
         {/* Heading */}
         <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold leading-tight">
-          Your Health Journey
-          <span className="block text-lime-300 mt-2">Starts Here</span>
+          {t("HeroJourney.headingLine1")}
+          <span className="block text-lime-300 mt-2">
+            {t("HeroJourney.headingLine2")}
+          </span>
         </h1>
 
         {/* Description */}
         <p className="mt-6 max-w-3xl mx-auto text-lg text-white/90">
-          Empowering rural and underserved communities with accessible healthcare
-          through AI-driven risk assessment, health education, and instant clinic
-          connectivity.
+          {t("HeroJourney.description")}
         </p>
 
         {/* CTA */}
@@ -55,7 +57,7 @@ export default function HeroJourney() {
             "
           >
             <Activity className="w-5 h-5 pointer-events-none" />
-            Start Health Check
+            {t("HeroJourney.cta")}
           </button>
         </div>
       </div>
@@ -63,5 +65,5 @@ export default function HeroJourney() {
       {/* Bottom fade */}
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white to-transparent" />
     </section>
-  )
+  );
 }
