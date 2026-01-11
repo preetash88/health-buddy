@@ -1,5 +1,6 @@
-import { useState } from "react";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useState, useRef, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import {
   Home,
   Activity,
@@ -8,54 +9,99 @@ import {
   Shield,
   MapPin,
   AlertCircle,
-  Globe,
   Menu,
   X,
+  ChevronDown,
 } from "lucide-react";
 
 const navItems = [
-  { label: "Home", icon: Home, path: "/" },
-  { label: "Symptom Analyzer", icon: Activity, path: "/symptom-analyzer" },
-  { label: "Symptom Checker", icon: Stethoscope, path: "/symptom-checker" },
-  { label: "Diseases", icon: BookOpen, path: "/diseases" },
-  { label: "Prevention", icon: Shield, path: "/prevention" },
-  { label: "Find Clinics", icon: MapPin, path: "/clinics" },
-  { label: "Emergency", icon: AlertCircle, path: "/emergency" },
-  // { label: "My Assessments", icon: ClipboardList, path: "/assessments" }
+  { key: "Navbar.home", icon: Home, path: "/" },
+  { key: "Navbar.symptomAnalyzer", icon: Activity, path: "/symptom-analyzer" },
+  { key: "Navbar.symptomChecker", icon: Stethoscope, path: "/symptom-checker" },
+  { key: "Navbar.diseases", icon: BookOpen, path: "/diseases" },
+  { key: "Navbar.prevention", icon: Shield, path: "/prevention" },
+  { key: "Navbar.findClinics", icon: MapPin, path: "/clinics" },
+  { key: "Navbar.emergency", icon: AlertCircle, path: "/emergency" },
+];
+
+const languages = [
+  { code: "en", label: "English" },
+  { code: "hi", label: "हिन्दी" },
+  { code: "ta", label: "தமிழ்" },
+  { code: "te", label: "తెలుగు" },
+  { code: "bn", label: "বাংলা" },
+  { code: "as", label: "অসমীয়া" },
+  { code: "kn", label: "ಕನ್ನಡ" },
+  { code: "mr", label: "मराठी" },
+  { code: "or", label: "ଓଡ଼ିଆ" },
+  { code: "pa", label: "ਪੰਜਾਬੀ" },
+  { code: "sa", label: "संस्कृतम्" },
 ];
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
-  const navigate = useNavigate();
+  const [langOpen, setLangOpen] = useState(false);
   const location = useLocation();
+  const { t, i18n } = useTranslation();
 
-  const handleNavigate = (path) => {
-    navigate(path, { replace: path === "/" });
-    setOpen(false);
-    window.scrollTo({ top: 0 });
+  const dropdownRef = useRef(null);
+  const buttonRef = useRef(null);
+
+  const changeLanguage = (code) => {
+    i18n.changeLanguage(code);
+    localStorage.setItem("lang", code);
+    setLangOpen(false);
   };
+
+  /* Close dropdown on outside click */
+  useEffect(() => {
+    function handleClickOutside(e) {
+      if (
+        langOpen &&
+        dropdownRef.current &&
+        !dropdownRef.current.contains(e.target) &&
+        buttonRef.current &&
+        !buttonRef.current.contains(e.target)
+      ) {
+        setLangOpen(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [langOpen]);
+
+  /* Close dropdown on ESC */
+  useEffect(() => {
+    function handleKeyDown(e) {
+      if (e.key === "Escape") setLangOpen(false);
+    }
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, []);
 
   return (
     <header
       className="
-        sticky top-0 z-50
-        bg-white/70 backdrop-blur-md
-        supports-[backdrop-filter]:bg-white/60
-        border-b border-white/30 shadow-lg
-        transition-colors duration-300
-        print-hide
-      "
+      sticky top-0 z-50
+      bg-white/70 backdrop-blur-md
+      supports-[backdrop-filter]:bg-white/60
+      border-b border-white/30 shadow-lg
+      transition-colors duration-300
+      print-hide
+    "
     >
       <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-        {/* Logo (unchanged) */}
+        {/* Logo */}
         <Link
           to="/"
           replace
           onClick={() => window.scrollTo({ top: 0 })}
-          className="flex items-center gap-3 whitespace-nowrap shrink-0 cursor-pointer [&_*]:cursor-pointer"
+          className="flex items-center gap-3 whitespace-nowrap shrink-0"
         >
           <div
-            className="w-12 h-12 rounded-2xl flex items-center justify-center shrink-0"
+            className="w-12 h-12 rounded-2xl flex items-center justify-center"
             style={{ background: "linear-gradient(135deg, #4F8CFF, #34D399)" }}
           >
             <svg
@@ -79,9 +125,9 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="mx-4 hidden lg:flex items-center flex-shrink-0 select-none">
-          <div className="flex items-center gap-2 text-medium font-medium">
-            {navItems.map((item, i) => {
+        <nav className="mx-4 hidden lg:flex">
+          <div className="flex items-center gap-2">
+            {navItems.map((item) => {
               const Icon = item.icon;
               const isActive =
                 item.path === "/"
@@ -90,24 +136,23 @@ export default function Navbar() {
 
               return (
                 <Link
-                  key={i}
+                  key={item.key}
                   to={item.path}
-                  replace={item.path === "/"}
                   className={`
-  flex items-center gap-2 px-3 py-3 rounded-lg
-  whitespace-nowrap leading-none
-cursor-pointer select-none
-[&_*]:cursor-pointer
-  transition-all duration-200
-  ${
-    isActive
-      ? "bg-blue-100 text-blue-600 font-semibold"
-      : "text-gray-600 hover:bg-gray-200"
-  }
-`}
+                    flex items-center gap-2
+                    h-10 px-4
+                    rounded-lg
+                    text-sm whitespace-nowrap
+                    transition-colors duration-200
+                    ${
+                      isActive
+                        ? "bg-blue-100 text-blue-600 font-semibold"
+                        : "text-gray-600 hover:bg-gray-200"
+                    }
+                  `}
                 >
-                  <Icon size={16} className="shrink-0 pointer-events-none" />
-                  <span>{item.label}</span>
+                  <Icon size={16} className="shrink-0" />
+                  {t(item.key)}
                 </Link>
               );
             })}
@@ -115,63 +160,75 @@ cursor-pointer select-none
         </nav>
 
         {/* Right Side */}
-        <div className="flex items-center gap-3 shrink-0">
-          <button className="hidden sm:flex items-center gap-1 border rounded-lg px-3 py-1.5 text-sm whitespace-nowrap">
-            <Globe size={14} />
-            English
-          </button>
+        <div className="flex items-center gap-3">
+          {/* Language Selector */}
+          <div className="relative hidden sm:block">
+            <button
+              ref={buttonRef}
+              onClick={() => setLangOpen((v) => !v)}
+              className="
+                flex items-center gap-2
+                h-10 px-4 cursor-pointer
+                text-sm font-medium
+                bg-white
+                border border-gray-400
+                rounded-lg
+                shadow-md
+                transition-all
+                hover:bg-gray-100 hover:shadow-lg
+                active:scale-[0.97]
+              "
+              aria-haspopup="listbox"
+              aria-expanded={langOpen}
+            >
+              {languages.find((l) => l.code === i18n.language)?.label}
+              <ChevronDown
+                size={14}
+                className={`transition-transform ${
+                  langOpen ? "rotate-180" : ""
+                }`}
+              />
+            </button>
 
+            {langOpen && (
+              <div
+                ref={dropdownRef}
+                className="
+                  absolute right-0 mt-2 w-44
+                  bg-white border border-gray-200
+                  rounded-xl shadow-lg
+                  overflow-hidden z-50
+                "
+              >
+                {languages.map((lang) => (
+                  <button
+                    key={lang.code}
+                    onClick={() => changeLanguage(lang.code)}
+                    className={`
+                      w-full text-left
+                      px-4 py-2 text-sm cursor-pointer
+                      transition-colors
+                      hover:bg-blue-200 active:bg-blue-100
+                      ${
+                        lang.code === i18n.language
+                          ? "bg-blue-100 font-semibold"
+                          : ""
+                      }
+                    `}
+                  >
+                    {lang.label}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* Mobile Menu Button */}
           <button className="lg:hidden" onClick={() => setOpen(!open)}>
             {open ? <X /> : <Menu />}
           </button>
         </div>
       </div>
-
-      {/* Mobile Menu */}
-      {open && (
-        <div className="lg:hidden border-t bg-white">
-          <div className="px-6 py-4 space-y-2">
-            {navItems.map((item, i) => {
-              const Icon = item.icon;
-              const isActive =
-                item.path === "/"
-                  ? location.pathname === "/"
-                  : location.pathname.startsWith(item.path);
-
-              return (
-                <Link
-                  key={i}
-                  to={item.path}
-                  replace={item.path === "/"}
-                  onClick={() => setOpen(false)}
-                  className={`
-  flex items-center gap-2 px-3 py-3 rounded-lg
-  whitespace-nowrap leading-none
-  cursor-pointer select-none
-  [&_*]:cursor-pointer
-  transition-all duration-200
-  ${
-    isActive
-      ? "bg-blue-100 text-blue-600 font-semibold"
-      : "text-gray-600 hover:bg-gray-200"
-  }
-`}
-                >
-                  <Icon size={16} className="shrink-0 pointer-events-none" />
-                  {item.label}
-                </Link>
-              );
-            })}
-
-            <div className="pt-4 border-t">
-              <button className="flex items-center gap-2 text-sm whitespace-nowrap">
-                <Globe size={14} />
-                English
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </header>
   );
 }

@@ -1,8 +1,10 @@
-import { Heart, Activity } from "lucide-react"
-import { useNavigate } from "react-router-dom"
+import { Heart, Activity } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 export default function CTASection() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const { t } = useTranslation();
 
   return (
     <section className="relative w-full overflow-hidden">
@@ -21,13 +23,11 @@ export default function CTASection() {
 
         {/* Heading */}
         <h2 className="text-3xl sm:text-4xl font-bold">
-          Take Control of Your Health Today
+          {t("CTASection.title")}
         </h2>
 
         {/* Subheading */}
-        <p className="mt-4 text-lg text-white/90">
-          Start your health assessment in just 2 minutes
-        </p>
+        <p className="mt-4 text-lg text-white/90">{t("CTASection.subtitle")}</p>
 
         {/* CTA */}
         <div className="mt-10 flex justify-center">
@@ -46,10 +46,10 @@ export default function CTASection() {
             "
           >
             <Activity className="w-5 h-5 pointer-events-none" />
-            Begin Assessment
+            {t("CTASection.cta")}
           </button>
         </div>
       </div>
     </section>
-  )
+  );
 }

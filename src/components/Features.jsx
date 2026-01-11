@@ -1,57 +1,30 @@
-import { useNavigate } from "react-router-dom"
-import {
-  Activity,
-  BookOpen,
-  Shield,
-  MapPin,
-  AlertCircle,
-} from "lucide-react"
+import { useNavigate } from "react-router-dom";
+import { Activity, BookOpen, Shield, MapPin, AlertCircle } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
-const features = [
-  {
-    title: "Symptom Checker",
-    description: "Assess your health with our AI-powered symptom analysis",
-    icon: Activity,
-    gradient: "from-blue-500 to-cyan-500",
-    action: "Start Assessment",
-    path: "/symptom-checker",
-  },
-  {
-    title: "Disease Library",
-    description: "Learn about diseases, symptoms, and prevention",
-    icon: BookOpen,
-    gradient: "from-purple-500 to-pink-500",
-    action: "Explore",
-    path: "/diseases",
-  },
-  {
-    title: "Prevention Tips",
-    description: "Get personalized health and wellness guidance",
-    icon: Shield,
-    gradient: "from-green-500 to-emerald-500",
-    action: "View Tips",
-    path: "/prevention",
-  },
-  {
-    title: "Find Clinics",
-    description: "Locate nearby healthcare facilities instantly",
-    icon: MapPin,
-    gradient: "from-orange-500 to-red-500",
-    action: "Find Now",
-    path: "/clinics",
-  },
-  {
-    title: "Emergency Guide",
-    description: "Critical first-aid procedures and helplines",
-    icon: AlertCircle,
-    gradient: "from-red-500 to-rose-500",
-    action: "View Guide",
-    path: "/emergency",
-  },
-]
+/* Icon mapping (React responsibility) */
+const ICON_MAP = {
+  symptomChecker: Activity,
+  diseaseLibrary: BookOpen,
+  preventionTips: Shield,
+  findClinics: MapPin,
+  emergencyGuide: AlertCircle,
+};
+
+/* Gradient mapping (UI responsibility) */
+const GRADIENT_MAP = {
+  symptomChecker: "from-blue-500 to-cyan-500",
+  diseaseLibrary: "from-purple-500 to-pink-500",
+  preventionTips: "from-green-500 to-emerald-500",
+  findClinics: "from-orange-500 to-red-500",
+  emergencyGuide: "from-red-500 to-rose-500",
+};
 
 export default function Features() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const { t } = useTranslation();
+
+  const features = t("Features.items", { returnObjects: true });
 
   return (
     <section className="py-14 bg-slate-50">
@@ -59,17 +32,18 @@ export default function Features() {
         {/* Section header */}
         <div className="text-center mb-16">
           <h2 className="text-3xl sm:text-4xl font-bold text-gray-900">
-            Complete Healthcare Suite
+            {t("Features.sectionTitle")}
           </h2>
           <p className="mt-4 text-gray-600 max-w-2xl mx-auto">
-            Everything you need for better health management in one place
+            {t("Features.sectionDescription")}
           </p>
         </div>
 
         {/* Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {features.map((feature, index) => {
-            const Icon = feature.icon
+            const Icon = ICON_MAP[feature.id];
+            const gradient = GRADIENT_MAP[feature.id];
 
             return (
               <div
@@ -82,21 +56,23 @@ export default function Features() {
                 "
               >
                 {/* Top gradient bar */}
-                <div className={`h-2 bg-gradient-to-r ${feature.gradient}`} />
+                <div className={`h-2 bg-gradient-to-r ${gradient}`} />
 
                 <div className="p-8 flex flex-col h-full">
                   {/* Icon */}
                   <div
                     className={`
                       w-14 h-14 rounded-2xl mb-6
-                      bg-gradient-to-br ${feature.gradient}
+                      bg-gradient-to-br ${gradient}
                       flex items-center justify-center
                       shadow-md
-                      transform transition-transform duration-300 ease-out
+                      transform transition-transform duration-300
                       group-hover:scale-110
                     `}
                   >
-                    <Icon className="w-7 h-7 text-white pointer-events-none" />
+                    {Icon && (
+                      <Icon className="w-7 h-7 text-white pointer-events-none" />
+                    )}
                   </div>
 
                   {/* Content */}
@@ -126,10 +102,10 @@ export default function Features() {
                   </button>
                 </div>
               </div>
-            )
+            );
           })}
         </div>
       </div>
     </section>
-  )
+  );
 }

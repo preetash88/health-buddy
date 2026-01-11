@@ -9,12 +9,15 @@ import {
   ArrowRight,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import rules from "@/data/symptomRules.json";
 import suggestedConditions from "@/data/suggestedConditions.json";
 
 /* ---------------- COMPONENT ---------------- */
 
 export default function SymptomAnalyzer() {
+  const { t } = useTranslation();
+
   const [text, setText] = useState("");
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(null);
@@ -25,24 +28,78 @@ export default function SymptomAnalyzer() {
 
   /* ---------- Production-level input validation ---------- */
   const isMeaningfulInput = (input) => {
-    const words = input.trim().split(/\s+/);
+    const text = input.toLowerCase().trim();
+    const words = text.split(/\s+/);
 
     if (words.length < 4) return false;
 
-    const hasMedicalKeyword = Object.keys(rules.symptomScores).some((k) =>
-      input.includes(k)
-    );
+    const medicalKeywords = Object.keys(rules.symptomScores);
 
-    const onlyLetters = /^[a-z\s]+$/i.test(input);
-    const hasVowels = /[aeiou]/i.test(input);
+    const STOP_WORDS = new Set([
+      "and",
+      "or",
+      "but",
+      "since",
+      "for",
+      "from",
+      "with",
+      "without",
+      "last",
+      "days",
+      "see",
+      "feeling",
+      "having",
+      "pain",
+      "problem",
+      "is",
+      "am",
+      "are",
+      "was",
+      "were",
+      "been",
+      "to",
+      "of",
+      "in",
+    ]);
 
-    return hasMedicalKeyword && hasVowels && onlyLetters;
+    let medicalWordCount = 0;
+    let unknownWordCount = 0;
+    let meaningfulWordCount = 0;
+
+    for (const word of words) {
+      const clean = word.replace(/[^a-z]/gi, "");
+      if (!clean) continue;
+
+      if (medicalKeywords.some((k) => clean.includes(k))) {
+        medicalWordCount++;
+        meaningfulWordCount++;
+        continue;
+      }
+
+      if (STOP_WORDS.has(clean)) continue;
+
+      const hasVowel = /[aeiou]/i.test(clean);
+      if (!hasVowel && clean.length > 4) {
+        unknownWordCount++;
+        continue;
+      }
+
+      meaningfulWordCount++;
+    }
+
+    const medicalRatio = medicalWordCount / words.length;
+    const unknownRatio = unknownWordCount / words.length;
+
+    if (medicalRatio < 0.25) return false;
+    if (unknownRatio > 0.4) return false;
+    if (meaningfulWordCount < 2) return false;
+
+    return true;
   };
 
   const analyzeSymptoms = () => {
     if (!text.trim() || charCount < MIN_CHARS) return;
 
-    /* ---------- INVALID INPUT → SIMPLE ORANGE WARNING ---------- */
     if (!isMeaningfulInput(text.toLowerCase())) {
       setResult({
         isInvalidInput: true,
@@ -51,10 +108,6 @@ export default function SymptomAnalyzer() {
         description: "We couldn’t understand your symptoms clearly.",
         conditions: [],
       });
-
-      // 🔐 FAIL-SAFE: clear invalid/random input
-      setText("");
-
       return;
     }
 
@@ -93,7 +146,6 @@ export default function SymptomAnalyzer() {
   };
 
   const handleKeyDown = (e) => {
-    // Desktop: Enter submits when valid
     if (
       e.key === "Enter" &&
       !e.shiftKey &&
@@ -116,21 +168,21 @@ export default function SymptomAnalyzer() {
         </div>
 
         <h1 className="text-3xl sm:text-4xl font-bold text-center text-gray-900">
-          Symptom Analyzer
+          {t("SymptomAnalyzer.title")}
         </h1>
 
         <p className="text-center text-gray-600 mt-2 text-lg">
-          Describe how you're feeling and we'll suggest which conditions to
-          check
+          {t("SymptomAnalyzer.subtitle")}
         </p>
 
         {/* How it works */}
         <div className="mt-8 rounded-xl border border-blue-200 bg-blue-50 px-5 py-3 flex gap-3">
           <Info className="w-5 h-5 text-blue-600 mt-0.5" />
           <p className="text-blue-800 text-sm">
-            <span className="font-medium block mb-1">How it works</span>
-            Describe your symptoms in your own words. Our system analyzes them
-            and suggests relevant health checks.
+            <span className="font-medium block mb-1">
+              {t("SymptomAnalyzer.howItWorks.title")}
+            </span>
+            {t("SymptomAnalyzer.howItWorks.description")}
           </p>
         </div>
 
@@ -139,7 +191,7 @@ export default function SymptomAnalyzer() {
           <div className="flex items-center gap-2 mb-2">
             <Sparkles className="w-5 h-5 text-purple-500" />
             <h2 className="font-semibold text-gray-900">
-              Describe Your Symptoms
+              {t("SymptomAnalyzer.inputTitle")}
             </h2>
           </div>
 
@@ -148,12 +200,11 @@ export default function SymptomAnalyzer() {
               rows={2}
               value={text}
               onChange={handleTextChange}
-              onKeyDown={handleKeyDown} // ✅ ADD THIS
+              onKeyDown={handleKeyDown}
               className="w-full rounded-xl border border-gray-200 px-4 py-3 pr-14 text-sm focus:outline-none focus:ring-2 focus:ring-purple-400 resize-none overflow-hidden transition"
-              placeholder="Example: headache and fever since last 2 days"
+              placeholder={t("SymptomAnalyzer.placeholder")}
             />
 
-            {/* Clear button */}
             {charCount >= MIN_CHARS && (
               <button
                 type="button"
@@ -161,7 +212,7 @@ export default function SymptomAnalyzer() {
                   setText("");
                   setResult(null);
                 }}
-                className="absolute top-2 right-2 px-2 py-1 text-xs rounded-md bg-gray-200 text-gray-700 hover:bg-gray-300 transition"
+                className="absolute top-2 right-2 px-2 py-1 text-xs rounded-md bg-gray-200 text-gray-700 hover:bg-gray-300 transition cursor-pointer"
               >
                 Clear
               </button>
@@ -173,7 +224,7 @@ export default function SymptomAnalyzer() {
               charCount < MIN_CHARS ? "text-red-500" : "text-green-600"
             }`}
           >
-            {charCount}/{MIN_CHARS} characters minimum
+            {charCount}/{MIN_CHARS} {t("SymptomAnalyzer.minChars")}
           </p>
 
           <button
@@ -187,7 +238,7 @@ export default function SymptomAnalyzer() {
               }
             `}
           >
-            {loading ? "Analyzing..." : "Analyze My Symptoms"}
+            {loading ? t("SymptomAnalyzer.loading") : t("SymptomAnalyzer.cta")}
             {!loading && <Search className="w-4 h-4" />}
           </button>
         </div>
@@ -195,7 +246,6 @@ export default function SymptomAnalyzer() {
         {/* RESULTS */}
         {result && (
           <>
-            {/* INVALID INPUT → ONLY ORANGE WARNING */}
             {result.isInvalidInput ? (
               <div className="mt-10 rounded-xl border border-yellow-200 bg-yellow-50 px-5 py-4 flex gap-3 text-yellow-700">
                 <AlertCircle className="w-5 h-5 mt-0.5" />
@@ -250,7 +300,16 @@ export default function SymptomAnalyzer() {
                   {result.conditions.map((c, i) => (
                     <div
                       key={i}
-                      className="bg-white border rounded-xl p-4 sm:p-5 shadow-sm flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 hover:shadow-xl transition"
+                      className="
+                        bg-white border rounded-xl
+                        p-4 sm:p-5
+                        shadow-sm
+                        flex flex-col sm:flex-row sm:items-center sm:justify-between
+                        gap-4
+                        cursor-pointer
+                        transition-all
+                        hover:shadow-xl hover:border-blue-300
+                      "
                     >
                       <div>
                         <div className="flex flex-wrap items-center gap-2">
@@ -268,9 +327,19 @@ export default function SymptomAnalyzer() {
 
                       <button
                         onClick={() => navigate("/symptom-checker")}
-                        className="bg-blue-600 text-white px-3 py-1.5 rounded-lg text-sm hover:bg-blue-700"
+                        className="
+                          inline-flex items-center justify-center gap-1.5
+                          h-9 min-w-[88px]
+                          bg-blue-600 text-white
+                          px-4 rounded-lg text-sm font-medium
+                          cursor-pointer
+                          transition
+                          hover:bg-blue-700
+                          active:scale-95
+                        "
                       >
-                        Check <ArrowRight size={14} />
+                        Check
+                        <ArrowRight size={14} />
                       </button>
                     </div>
                   ))}
@@ -286,13 +355,13 @@ export default function SymptomAnalyzer() {
                 <div className="mt-6 flex gap-4">
                   <button
                     onClick={() => navigate("/symptom-checker")}
-                    className="flex-1 bg-black text-white py-2.5 rounded-lg"
+                    className="flex-1 bg-black text-white py-2.5 rounded-lg cursor-pointer hover:bg-gray-900 transition"
                   >
                     Go to Symptom Checker →
                   </button>
                   <button
                     onClick={() => navigate("/clinics")}
-                    className="flex-1 border py-2.5 rounded-lg"
+                    className="flex-1 border py-2.5 rounded-lg cursor-pointer hover:bg-gray-50 transition"
                   >
                     Find Nearby Clinics
                   </button>
