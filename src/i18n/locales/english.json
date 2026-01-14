@@ -2472,6 +2472,12 @@
           ]
         }
       },
+      "jaundice":{
+
+      },
+      "food-poisoning":{
+
+      },
 
       "constipation": {
         "title": "Constipation",
@@ -4056,8 +4062,83 @@
             "Ensure ongoing specialist follow-up"
           ]
         }
+      },
+      "depression":{
+
+      },
+      "anxiety-disorder":{
+    },
+    "insomnia":{
+
+    },
+    "acne":{
+    },
+    "eczema":{
+
+    },
+    "psoriasis":{
+
+    },
+    "skin-cancer-melanoma":{
+
+    },
+    "glaucoma":{
+
+    },
+      "cataracts":{
+
+      },
+      "conjunctivitis":{
+
+      },
+      "breast-cancer":{
+
+      },
+      "colorectal-cancer":{
+
+      },
+      "prostate-cancer":{
+
+      },
+      "liver-cancer":{
+
+      },
+      "pancreatic-cancer":{
+
+      },
+      "leukemia":{
+
+      },
+      "lymphoma":{
+
+      },
+      "brain-cancer":{
+
+      },
+      "ovarian-cancer":{
+
+      },
+      "cervical-cancer":{
+
+      },
+      "thyroid-cancer":{
+
+      },
+      "kidney-cancer":{
+
+      },
+      "bladder-cancer":{
+
+      },
+      "oral-cancer":{
+
+      },
+      "anemia":{
+
+      },
+      "urinary-tract-infection":{
+
       }
-    }
   },
   "AssessmentResult": {
     "assessment": "Assessment",
