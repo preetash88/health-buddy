@@ -27,7 +27,18 @@ function AlertIcon({ className = "" }) {
 export default function EmergencyDetail() {
   const { slug } = useParams();
   const navigate = useNavigate();
-  const data = emergencyData?.[slug];
+  const data =
+  emergencyData?.[slug] ||
+  Object.entries(emergencyData).find(([key]) => key.startsWith(slug))?.[1] ||
+  Object.entries(emergencyData).find(([key]) => key.includes(slug))?.[1] ||
+  Object.values(emergencyData).find(
+    (item) =>
+      item.title
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-|-$/g, "") === slug
+  );
+
 
   useEffect(() => {
     window.scrollTo({ top: 0 });
