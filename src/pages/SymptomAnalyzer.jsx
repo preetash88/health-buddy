@@ -32,7 +32,6 @@ export default function SymptomAnalyzer() {
     defaultValue: {},
   });
 
-
   const MIN_CHARS = config.minCharCount ?? 30;
 
   const [text, setText] = useState("");
@@ -42,6 +41,94 @@ export default function SymptomAnalyzer() {
   });
 
   const charCount = text.trim().length;
+
+  /* ================== SCORING ENGINE ================== */
+  const analyzeScore = ({
+    input,
+    symptomScores = {},
+    confidence,
+    thresholds,
+  }) => {
+    let score = 0;
+    const breakdown = {};
+
+    // ---- Keyword frequency scoring ----
+    Object.entries(symptomScores).forEach(([keyword, value]) => {
+      const occurrences = input.split(keyword).length - 1;
+      if (occurrences > 0) {
+        const keywordScore = occurrences * value;
+        score += keywordScore;
+        breakdown[keyword] = {
+          occurrences,
+          value,
+          score: keywordScore,
+        };
+      }
+    });
+
+    // ---- Input richness bonus ----
+    const wordCount = input.split(/\s+/).length;
+    if (wordCount > 20) score += 2;
+    if (wordCount > 35) score += 4;
+
+    // ---- Confidence multiplier ----
+    let confidenceMultiplier = 1;
+    if (confidence === "strong") confidenceMultiplier = 1.3;
+    if (confidence === "very_strong") confidenceMultiplier = 1.6;
+
+    score = Math.round(score * confidenceMultiplier);
+
+    // ---- Red flag override ----
+    const redFlags = [
+      "chest pain",
+      "shortness of breath",
+      "fainting",
+      "blood",
+      "unconscious",
+    ];
+
+    const hasRedFlag = redFlags.some((r) => input.includes(r));
+
+    // ---- Urgency decision ----
+    let urgency =
+      score >= thresholds.high
+        ? "high"
+        : score >= thresholds.moderate
+        ? "moderate"
+        : "low";
+
+    if (hasRedFlag) urgency = "high";
+
+    return {
+      score,
+      urgency,
+      breakdown,
+      wordCount,
+      confidence,
+      hasRedFlag,
+    };
+  };
+
+  /* ================== TELEMETRY ================== */
+  const logTelemetry = (payload) => {
+    try {
+      // Local tuning (dev-friendly)
+      const logs = JSON.parse(localStorage.getItem("symptomTelemetry") || "[]");
+      logs.push({ ...payload, ts: Date.now() });
+      localStorage.setItem("symptomTelemetry", JSON.stringify(logs));
+
+      // Optional remote endpoint (commented by default)
+      /*
+    fetch("/api/telemetry/symptom-analyzer", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+    */
+    } catch (e) {
+      // silent fail – never break UX
+    }
+  };
 
   /* ---------- Robust Input Analysis ---------- */
   const analyzeInputQuality = (input) => {
@@ -132,21 +219,41 @@ export default function SymptomAnalyzer() {
 
     setTimeout(() => {
       const input = text.toLowerCase();
-      let score = 0;
+      const thresholds = {
+        high: config.urgencyThresholds?.high ?? 14,
+        moderate: config.urgencyThresholds?.moderate ?? 7,
 
-      Object.entries(config.symptomScores ?? {}).forEach(([keyword, value]) => {
-        if (input.includes(keyword)) score += value;
+        
+      };
+
+      const analysis = analyzeScore({
+        input,
+        symptomScores: config.symptomScores ?? {},
+        confidence: quality.confidence,
+        thresholds,
+        
       });
 
-      if (quality.confidence === "strong") score += 3;
-      if (quality.confidence === "very_strong") score += 6;
+      // ---- TELEMETRY ----
+      logTelemetry({
+        score: analysis.score,
+        urgency: analysis.urgency,
+        confidence: analysis.confidence,
+        wordCount: analysis.wordCount,
+        hasRedFlag: analysis.hasRedFlag,
+        breakdown: analysis.breakdown,
+      });
 
-      const urgencyLevel =
-        score >= (config.urgencyThresholds?.high ?? 20)
-          ? "high"
-          : score >= (config.urgencyThresholds?.moderate ?? 10)
-          ? "moderate"
-          : "low";
+      let urgencyLevel = analysis.urgency;
+
+      if (analysis.hasRedFlag) {
+        urgencyLevel = "high";
+      }
+
+      if (analysis.score >= thresholds.moderate - 1 && urgencyLevel === "low") {
+        urgencyLevel = "moderate";
+      }
+
 
       const urgencyData = t(`SymptomAnalyzer.urgency.${urgencyLevel}`, {
         returnObjects: true,
@@ -167,7 +274,6 @@ export default function SymptomAnalyzer() {
         color: urgencyData.color,
         conditions,
       });
-
 
       setLoading(false);
     }, 1500);
@@ -234,7 +340,6 @@ export default function SymptomAnalyzer() {
                 type="button"
                 onClick={() => {
                   setText("");
-                  setResult({ status: "idle" });
                 }}
                 className="absolute top-2 right-2 w-6 h-6 rounded-full bg-purple-500 font-semibold cursor-pointer text-black hover:bg-gray-300 flex items-center justify-center"
                 aria-label="Clear text"
