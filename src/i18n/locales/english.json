@@ -2213,6 +2213,7 @@
           ]
         }
       },
+
       "acid-reflux-gerd": {
         "title": "Acid Reflux (GERD)",
         "risk_thresholds": { "low": 0, "moderate": 7, "high": 14 },
@@ -2479,8 +2480,143 @@
           ]
         }
       },
-      "jaundice": {},
-      "food-poisoning": {},
+
+      "jaundice": {
+        "title": "Jaundice",
+        "risk_thresholds": { "low": 0, "moderate": 8, "high": 15 },
+        "questions": [
+          {
+            "question": "Have you noticed yellowing of your eyes or skin?",
+            "options": [
+              { "text": "Yes", "score": 5 },
+              { "text": "Mild yellowing", "score": 3 },
+              { "text": "No", "score": 0 }
+            ]
+          },
+          {
+            "question": "Is your urine dark in color or stools pale?",
+            "options": [
+              { "text": "Yes", "score": 4 },
+              { "text": "Not sure", "score": 2 },
+              { "text": "No", "score": 0 }
+            ]
+          },
+          {
+            "question": "Do you have itching, fatigue, or loss of appetite?",
+            "options": [
+              { "text": "Yes", "score": 3 },
+              { "text": "Occasionally", "score": 1 },
+              { "text": "No", "score": 0 }
+            ]
+          },
+          {
+            "question": "Have you had fever, abdominal pain, or nausea?",
+            "options": [
+              { "text": "Yes", "score": 3 },
+              { "text": "Mild symptoms", "score": 1 },
+              { "text": "No", "score": 0 }
+            ]
+          },
+          {
+            "question": "Do you have a history of liver disease, hepatitis, or heavy alcohol use?",
+            "options": [
+              { "text": "Yes", "score": 5, "critical": true },
+              { "text": "No", "score": 0 }
+            ]
+          }
+        ],
+        "recommendations": {
+          "low": [
+            "Stay well hydrated",
+            "Eat a balanced and light diet",
+            "Avoid alcohol",
+            "Monitor skin and eye color",
+            "Get adequate rest"
+          ],
+          "moderate": [
+            "Consult a healthcare provider",
+            "Undergo liver function tests if advised",
+            "Avoid medications not prescribed",
+            "Maintain a liver-friendly diet",
+            "Monitor symptoms closely"
+          ],
+          "high": [
+            "Seek urgent medical care",
+            "Get immediate evaluation of liver function",
+            "Do not consume alcohol or non-prescribed drugs",
+            "Follow hospital care instructions strictly",
+            "Ensure continuous medical supervision"
+          ]
+        }
+      },
+
+      "food-poisoning": {
+        "title": "Food Poisoning",
+        "risk_thresholds": { "low": 0, "moderate": 7, "high": 14 },
+        "questions": [
+          {
+            "question": "Do you have diarrhea or vomiting after eating suspicious food?",
+            "options": [
+              { "text": "Yes", "score": 4 },
+              { "text": "Mild symptoms", "score": 2 },
+              { "text": "No", "score": 0 }
+            ]
+          },
+          {
+            "question": "Are you experiencing abdominal cramps or stomach pain?",
+            "options": [
+              { "text": "Severe", "score": 3 },
+              { "text": "Mild", "score": 1 },
+              { "text": "No", "score": 0 }
+            ]
+          },
+          {
+            "question": "Do you have fever, chills, or weakness?",
+            "options": [
+              { "text": "Yes", "score": 3 },
+              { "text": "Mild", "score": 1 },
+              { "text": "No", "score": 0 }
+            ]
+          },
+          {
+            "question": "Is there blood in your stool or vomit?",
+            "options": [
+              { "text": "Yes", "score": 10, "critical": true },
+              { "text": "No", "score": 0 }
+            ]
+          },
+          {
+            "question": "Have symptoms lasted more than 24 hours?",
+            "options": [
+              { "text": "Yes", "score": 3 },
+              { "text": "No", "score": 0 }
+            ]
+          }
+        ],
+        "recommendations": {
+          "low": [
+            "Drink oral rehydration fluids",
+            "Rest and avoid solid food temporarily",
+            "Avoid greasy or spicy foods",
+            "Monitor symptoms",
+            "Resume light meals gradually"
+          ],
+          "moderate": [
+            "Consult a healthcare provider",
+            "Use oral rehydration salts",
+            "Avoid anti-diarrheal drugs unless prescribed",
+            "Eat bland foods",
+            "Watch for dehydration signs"
+          ],
+          "high": [
+            "Seek urgent medical care",
+            "Go to the nearest emergency facility",
+            "Get IV fluids if dehydrated",
+            "Avoid food until medically evaluated",
+            "Follow hospital treatment plan strictly"
+          ]
+        }
+      },
 
       "constipation": {
         "title": "Constipation",
@@ -3466,6 +3602,7 @@
           ]
         }
       },
+
       "back-pain": {
         "title": "Back Pain",
         "risk_thresholds": { "low": 0, "moderate": 6, "high": 12 },
@@ -3864,6 +4001,7 @@
           ]
         }
       },
+
       "type-2-diabetes": {
         "title": "Type 2 Diabetes",
         "risk_thresholds": { "low": 0, "moderate": 8, "high": 16 },
@@ -4066,32 +4204,1596 @@
           ]
         }
       },
-      "depression": {},
-      "anxiety-disorder": {},
-      "insomnia": {},
-      "acne": {},
-      "eczema": {},
-      "psoriasis": {},
-      "skin-cancer-melanoma": {},
-      "glaucoma": {},
-      "cataracts": {},
-      "conjunctivitis": {},
-      "breast-cancer": {},
-      "colorectal-cancer": {},
-      "prostate-cancer": {},
-      "liver-cancer": {},
-      "pancreatic-cancer": {},
-      "leukemia": {},
-      "lymphoma": {},
-      "brain-cancer": {},
-      "ovarian-cancer": {},
-      "cervical-cancer": {},
-      "thyroid-cancer": {},
-      "kidney-cancer": {},
-      "bladder-cancer": {},
-      "oral-cancer": {},
-      "anemia": {},
-      "urinary-tract-infection": {}
+
+      "depression": {
+        "title": "Depression",
+        "risk_thresholds": { "low": 0, "moderate": 8, "high": 15 },
+        "questions": [
+          {
+            "question": "Have you felt sad, empty, or hopeless most of the day?",
+            "options": [
+              { "text": "Nearly every day", "score": 5 },
+              { "text": "Several days", "score": 3 },
+              { "text": "Rarely", "score": 0 }
+            ]
+          },
+          {
+            "question": "Have you lost interest or pleasure in activities you used to enjoy?",
+            "options": [
+              { "text": "Yes", "score": 4 },
+              { "text": "Sometimes", "score": 2 },
+              { "text": "No", "score": 0 }
+            ]
+          },
+          {
+            "question": "Do you experience fatigue, low energy, or slowed thinking?",
+            "options": [
+              { "text": "Most days", "score": 3 },
+              { "text": "Occasionally", "score": 1 },
+              { "text": "No", "score": 0 }
+            ]
+          },
+          {
+            "question": "Do you have trouble concentrating or making decisions?",
+            "options": [
+              { "text": "Yes", "score": 2 },
+              { "text": "Sometimes", "score": 1 },
+              { "text": "No", "score": 0 }
+            ]
+          },
+          {
+            "question": "Have you had thoughts of harming yourself or not wanting to live?",
+            "options": [
+              { "text": "Yes", "score": 10, "critical": true },
+              { "text": "No", "score": 0 }
+            ]
+          }
+        ],
+        "recommendations": {
+          "low": [
+            "Maintain a daily routine",
+            "Exercise and stay socially connected",
+            "Get adequate sleep",
+            "Practice relaxation techniques",
+            "Monitor mood changes"
+          ],
+          "moderate": [
+            "Consult a mental health professional",
+            "Consider counseling or therapy",
+            "Avoid alcohol and substance use",
+            "Follow structured daily activities",
+            "Seek support from trusted people"
+          ],
+          "high": [
+            "Seek immediate professional help",
+            "Contact a mental health crisis service",
+            "Do not stay alone if unsafe",
+            "Follow emergency care instructions",
+            "Ensure continuous supervision"
+          ]
+        }
+      },
+
+      "anxiety-disorder": {
+        "title": "Anxiety Disorder",
+        "risk_thresholds": { "low": 0, "moderate": 7, "high": 14 },
+        "questions": [
+          {
+            "question": "Do you feel excessive worry or fear that is difficult to control?",
+            "options": [
+              { "text": "Most days", "score": 4 },
+              { "text": "Sometimes", "score": 2 },
+              { "text": "Rarely", "score": 0 }
+            ]
+          },
+          {
+            "question": "Do you experience restlessness, rapid heartbeat, or sweating?",
+            "options": [
+              { "text": "Frequently", "score": 3 },
+              { "text": "Occasionally", "score": 1 },
+              { "text": "No", "score": 0 }
+            ]
+          },
+          {
+            "question": "Do anxiety symptoms interfere with work, school, or relationships?",
+            "options": [
+              { "text": "Yes", "score": 4 },
+              { "text": "Sometimes", "score": 2 },
+              { "text": "No", "score": 0 }
+            ]
+          },
+          {
+            "question": "Do you avoid situations because of fear or panic?",
+            "options": [
+              { "text": "Yes", "score": 3 },
+              { "text": "Sometimes", "score": 1 },
+              { "text": "No", "score": 0 }
+            ]
+          },
+          {
+            "question": "Do you experience panic attacks?",
+            "options": [
+              { "text": "Yes", "score": 5 },
+              { "text": "No", "score": 0 }
+            ]
+          }
+        ],
+        "recommendations": {
+          "low": [
+            "Practice breathing and relaxation exercises",
+            "Limit caffeine",
+            "Maintain regular sleep",
+            "Exercise regularly",
+            "Monitor stress triggers"
+          ],
+          "moderate": [
+            "Seek counseling or therapy",
+            "Practice structured stress management",
+            "Avoid alcohol or recreational drugs",
+            "Use medications only if prescribed",
+            "Build a support system"
+          ],
+          "high": [
+            "Consult a mental health specialist",
+            "Seek urgent care if panic is severe",
+            "Avoid isolation",
+            "Follow medical guidance",
+            "Ensure emotional support"
+          ]
+        }
+      },
+
+      "insomnia": {
+        "title": "Insomnia",
+        "risk_thresholds": { "low": 0, "moderate": 6, "high": 12 },
+        "questions": [
+          {
+            "question": "Do you have difficulty falling asleep or staying asleep?",
+            "options": [
+              { "text": "Most nights", "score": 4 },
+              { "text": "Sometimes", "score": 2 },
+              { "text": "No", "score": 0 }
+            ]
+          },
+          {
+            "question": "Do you wake up feeling unrefreshed or tired?",
+            "options": [
+              { "text": "Yes", "score": 3 },
+              { "text": "Occasionally", "score": 1 },
+              { "text": "No", "score": 0 }
+            ]
+          },
+          {
+            "question": "Do sleep problems affect your daily functioning?",
+            "options": [
+              { "text": "Yes", "score": 3 },
+              { "text": "Mildly", "score": 1 },
+              { "text": "No", "score": 0 }
+            ]
+          },
+          {
+            "question": "Have symptoms lasted more than 2 weeks?",
+            "options": [
+              { "text": "Yes", "score": 2 },
+              { "text": "No", "score": 0 }
+            ]
+          }
+        ],
+        "recommendations": {
+          "low": [
+            "Maintain consistent sleep schedule",
+            "Limit screen time before bed",
+            "Avoid caffeine late in the day",
+            "Practice relaxation",
+            "Create a comfortable sleep environment"
+          ],
+          "moderate": [
+            "Consult a healthcare provider",
+            "Improve sleep hygiene",
+            "Limit naps",
+            "Use therapy or techniques if advised",
+            "Monitor sleep patterns"
+          ],
+          "high": [
+            "Seek medical evaluation",
+            "Assess for underlying conditions",
+            "Avoid self-medicating",
+            "Follow prescribed treatments",
+            "Ensure adequate rest support"
+          ]
+        }
+      },
+
+      "acne": {
+        "title": "Acne",
+        "risk_thresholds": { "low": 0, "moderate": 6, "high": 12 },
+        "questions": [
+          {
+            "question": "Do you have pimples, blackheads, or whiteheads on your face or body?",
+            "options": [
+              { "text": "Many", "score": 4 },
+              { "text": "A few", "score": 2 },
+              { "text": "None", "score": 0 }
+            ]
+          },
+          {
+            "question": "Do you have painful or deep cystic acne?",
+            "options": [
+              { "text": "Yes", "score": 4 },
+              { "text": "Sometimes", "score": 2 },
+              { "text": "No", "score": 0 }
+            ]
+          },
+          {
+            "question": "Are breakouts leaving scars or dark marks?",
+            "options": [
+              { "text": "Yes", "score": 3 },
+              { "text": "Mild marks", "score": 1 },
+              { "text": "No", "score": 0 }
+            ]
+          },
+          {
+            "question": "Have symptoms persisted for more than 2 months?",
+            "options": [
+              { "text": "Yes", "score": 3 },
+              { "text": "No", "score": 0 }
+            ]
+          }
+        ],
+        "recommendations": {
+          "low": [
+            "Keep skin clean",
+            "Avoid touching face frequently",
+            "Use non-comedogenic products",
+            "Maintain healthy diet",
+            "Monitor skin changes"
+          ],
+          "moderate": [
+            "Use dermatologist-approved products",
+            "Avoid squeezing pimples",
+            "Limit oily cosmetics",
+            "Maintain consistent skincare routine",
+            "Consult a provider if not improving"
+          ],
+          "high": [
+            "Consult a dermatologist",
+            "Consider prescription treatment",
+            "Treat scarring early",
+            "Avoid harsh products",
+            "Follow medical advice carefully"
+          ]
+        }
+      },
+
+      "eczema": {
+        "title": "Eczema (Atopic Dermatitis)",
+        "risk_thresholds": { "low": 0, "moderate": 7, "high": 14 },
+        "questions": [
+          {
+            "question": "Do you have itchy, red, or inflamed skin patches?",
+            "options": [
+              { "text": "Yes", "score": 4 },
+              { "text": "Occasionally", "score": 2 },
+              { "text": "No", "score": 0 }
+            ]
+          },
+          {
+            "question": "Is your skin dry, cracked, or scaly?",
+            "options": [
+              { "text": "Severe", "score": 4 },
+              { "text": "Mild", "score": 2 },
+              { "text": "No", "score": 0 }
+            ]
+          },
+          {
+            "question": "Do symptoms worsen with stress or allergens?",
+            "options": [
+              { "text": "Yes", "score": 3 },
+              { "text": "Sometimes", "score": 1 },
+              { "text": "No", "score": 0 }
+            ]
+          },
+          {
+            "question": "Do you have oozing, bleeding, or infected skin?",
+            "options": [
+              { "text": "Yes", "score": 5, "critical": true },
+              { "text": "No", "score": 0 }
+            ]
+          }
+        ],
+        "recommendations": {
+          "low": [
+            "Moisturize daily",
+            "Avoid harsh soaps",
+            "Use mild detergents",
+            "Avoid scratching",
+            "Keep skin hydrated"
+          ],
+          "moderate": [
+            "Use medicated creams if prescribed",
+            "Avoid known triggers",
+            "Use gentle skincare products",
+            "Monitor flare-ups",
+            "Consult a provider"
+          ],
+          "high": [
+            "Seek dermatology care",
+            "Treat infections promptly",
+            "Use prescription therapy",
+            "Avoid irritants completely",
+            "Follow medical guidance"
+          ]
+        }
+      },
+
+      "psoriasis": {
+        "title": "Psoriasis",
+        "risk_thresholds": { "low": 0, "moderate": 8, "high": 15 },
+        "questions": [
+          {
+            "question": "Do you have thick, red patches covered with silvery scales?",
+            "options": [
+              { "text": "Yes", "score": 5 },
+              { "text": "Mild patches", "score": 2 },
+              { "text": "No", "score": 0 }
+            ]
+          },
+          {
+            "question": "Do you experience itching, burning, or soreness?",
+            "options": [
+              { "text": "Frequently", "score": 3 },
+              { "text": "Occasionally", "score": 1 },
+              { "text": "No", "score": 0 }
+            ]
+          },
+          {
+            "question": "Are joints painful or stiff?",
+            "options": [
+              { "text": "Yes", "score": 4 },
+              { "text": "Mild", "score": 2 },
+              { "text": "No", "score": 0 }
+            ]
+          },
+          {
+            "question": "Have symptoms lasted more than 3 months?",
+            "options": [
+              { "text": "Yes", "score": 3 },
+              { "text": "No", "score": 0 }
+            ]
+          }
+        ],
+        "recommendations": {
+          "low": [
+            "Use moisturizers",
+            "Avoid triggers",
+            "Maintain healthy lifestyle",
+            "Limit alcohol",
+            "Protect skin"
+          ],
+          "moderate": [
+            "Use prescribed topical treatments",
+            "Avoid smoking",
+            "Manage stress",
+            "Monitor flare-ups",
+            "Consult a dermatologist"
+          ],
+          "high": [
+            "Seek specialist care",
+            "Consider systemic therapy",
+            "Monitor joint symptoms",
+            "Follow treatment plan",
+            "Regular follow-up"
+          ]
+        }
+      },
+
+      "skin-cancer-melanoma": {
+        "title": "Skin Cancer (Melanoma)",
+        "risk_thresholds": { "low": 0, "moderate": 10, "high": 18 },
+        "questions": [
+          {
+            "question": "Do you have a mole that has changed in size, shape, or color?",
+            "options": [
+              { "text": "Yes", "score": 6 },
+              { "text": "Slight changes", "score": 3 },
+              { "text": "No", "score": 0 }
+            ]
+          },
+          {
+            "question": "Is the mole bleeding, itching, or not healing?",
+            "options": [
+              { "text": "Yes", "score": 6 },
+              { "text": "No", "score": 0 }
+            ]
+          },
+          {
+            "question": "Do you have multiple irregular or dark moles?",
+            "options": [
+              { "text": "Yes", "score": 4 },
+              { "text": "A few", "score": 2 },
+              { "text": "No", "score": 0 }
+            ]
+          },
+          {
+            "question": "Have you had significant sun exposure or tanning?",
+            "options": [
+              { "text": "Yes", "score": 3 },
+              { "text": "Some", "score": 1 },
+              { "text": "No", "score": 0 }
+            ]
+          }
+        ],
+        "recommendations": {
+          "low": [
+            "Use sunscreen",
+            "Monitor moles",
+            "Avoid tanning beds",
+            "Protect skin from sun",
+            "Perform regular skin checks"
+          ],
+          "moderate": [
+            "See a dermatologist",
+            "Get suspicious moles evaluated",
+            "Limit sun exposure",
+            "Use protective clothing",
+            "Follow medical advice"
+          ],
+          "high": [
+            "Seek urgent dermatologic evaluation",
+            "Biopsy suspicious lesions",
+            "Do not delay treatment",
+            "Follow oncology referral",
+            "Ensure continuous care"
+          ]
+        }
+      },
+
+      "glaucoma": {
+        "title": "Glaucoma",
+        "risk_thresholds": { "low": 0, "moderate": 8, "high": 15 },
+        "questions": [
+          {
+            "question": "Do you experience loss of peripheral (side) vision?",
+            "options": [
+              { "text": "Yes", "score": 5 },
+              { "text": "Some difficulty", "score": 3 },
+              { "text": "No", "score": 0 }
+            ]
+          },
+          {
+            "question": "Do you have eye pain, pressure, or headaches?",
+            "options": [
+              { "text": "Frequently", "score": 4 },
+              { "text": "Occasionally", "score": 2 },
+              { "text": "No", "score": 0 }
+            ]
+          },
+          {
+            "question": "Do you see halos around lights or blurred vision?",
+            "options": [
+              { "text": "Yes", "score": 4 },
+              { "text": "Sometimes", "score": 2 },
+              { "text": "No", "score": 0 }
+            ]
+          },
+          {
+            "question": "Do you have a family history of glaucoma?",
+            "options": [
+              { "text": "Yes", "score": 3 },
+              { "text": "Not sure", "score": 1 },
+              { "text": "No", "score": 0 }
+            ]
+          }
+        ],
+        "recommendations": {
+          "low": [
+            "Get regular eye checkups",
+            "Protect eyes from injury",
+            "Maintain healthy blood pressure",
+            "Avoid smoking",
+            "Monitor vision changes"
+          ],
+          "moderate": [
+            "Consult an eye specialist",
+            "Undergo eye pressure testing",
+            "Use prescribed eye drops",
+            "Avoid eye strain",
+            "Follow follow-up schedules"
+          ],
+          "high": [
+            "Seek urgent ophthalmology care",
+            "Prevent further vision loss",
+            "Follow treatment strictly",
+            "Do not miss appointments",
+            "Ensure continuous eye monitoring"
+          ]
+        }
+      },
+
+      "cataracts": {
+        "title": "Cataracts",
+        "risk_thresholds": { "low": 0, "moderate": 7, "high": 14 },
+        "questions": [
+          {
+            "question": "Do you have cloudy or blurry vision?",
+            "options": [
+              { "text": "Yes", "score": 4 },
+              { "text": "Mild", "score": 2 },
+              { "text": "No", "score": 0 }
+            ]
+          },
+          {
+            "question": "Do you have difficulty seeing at night?",
+            "options": [
+              { "text": "Yes", "score": 4 },
+              { "text": "Sometimes", "score": 2 },
+              { "text": "No", "score": 0 }
+            ]
+          },
+          {
+            "question": "Are colors appearing faded or yellowed?",
+            "options": [
+              { "text": "Yes", "score": 3 },
+              { "text": "Slightly", "score": 1 },
+              { "text": "No", "score": 0 }
+            ]
+          },
+          {
+            "question": "Have symptoms worsened over months?",
+            "options": [
+              { "text": "Yes", "score": 3 },
+              { "text": "No", "score": 0 }
+            ]
+          }
+        ],
+        "recommendations": {
+          "low": [
+            "Use adequate lighting",
+            "Wear sunglasses",
+            "Get routine eye exams",
+            "Maintain eye hygiene",
+            "Monitor vision changes"
+          ],
+          "moderate": [
+            "Consult an ophthalmologist",
+            "Update glasses if needed",
+            "Avoid glare",
+            "Assess need for surgery",
+            "Follow doctor advice"
+          ],
+          "high": [
+            "Schedule cataract surgery",
+            "Avoid driving if vision is poor",
+            "Prevent falls",
+            "Follow surgical plan",
+            "Ensure postoperative care"
+          ]
+        }
+      },
+
+      "conjunctivitis": {
+        "title": "Conjunctivitis (Pink Eye)",
+        "risk_thresholds": { "low": 0, "moderate": 6, "high": 12 },
+        "questions": [
+          {
+            "question": "Do you have red or pink eyes?",
+            "options": [
+              { "text": "Yes", "score": 3 },
+              { "text": "Mild redness", "score": 1 },
+              { "text": "No", "score": 0 }
+            ]
+          },
+          {
+            "question": "Do you have eye discharge or crusting?",
+            "options": [
+              { "text": "Yes", "score": 4 },
+              { "text": "Mild", "score": 2 },
+              { "text": "No", "score": 0 }
+            ]
+          },
+          {
+            "question": "Do your eyes itch, burn, or feel gritty?",
+            "options": [
+              { "text": "Frequently", "score": 3 },
+              { "text": "Sometimes", "score": 1 },
+              { "text": "No", "score": 0 }
+            ]
+          },
+          {
+            "question": "Is vision blurred or painful?",
+            "options": [
+              { "text": "Yes", "score": 5, "critical": true },
+              { "text": "No", "score": 0 }
+            ]
+          }
+        ],
+        "recommendations": {
+          "low": [
+            "Wash hands frequently",
+            "Avoid touching eyes",
+            "Use clean towels",
+            "Apply cold compress",
+            "Monitor symptoms"
+          ],
+          "moderate": [
+            "Use prescribed eye drops",
+            "Avoid contact lenses",
+            "Clean eyelids",
+            "Avoid sharing personal items",
+            "Consult an eye doctor"
+          ],
+          "high": [
+            "Seek urgent eye care",
+            "Prevent vision damage",
+            "Follow prescribed treatment",
+            "Avoid eye strain",
+            "Ensure infection control"
+          ]
+        }
+      },
+
+      "breast-cancer": {
+        "title": "Breast Cancer",
+        "risk_thresholds": { "low": 0, "moderate": 10, "high": 18 },
+        "questions": [
+          {
+            "question": "Do you feel a lump or thickening in the breast or underarm?",
+            "options": [
+              { "text": "Yes", "score": 6 },
+              { "text": "Not sure", "score": 3 },
+              { "text": "No", "score": 0 }
+            ]
+          },
+          {
+            "question": "Is there nipple discharge, inversion, or skin dimpling?",
+            "options": [
+              { "text": "Yes", "score": 6 },
+              { "text": "Mild change", "score": 3 },
+              { "text": "No", "score": 0 }
+            ]
+          },
+          {
+            "question": "Has the breast changed in size, shape, or appearance?",
+            "options": [
+              { "text": "Yes", "score": 4 },
+              { "text": "Slight change", "score": 2 },
+              { "text": "No", "score": 0 }
+            ]
+          },
+          {
+            "question": "Do you have a family history of breast cancer?",
+            "options": [
+              { "text": "Yes", "score": 3 },
+              { "text": "Not sure", "score": 1 },
+              { "text": "No", "score": 0 }
+            ]
+          }
+        ],
+        "recommendations": {
+          "low": [
+            "Perform regular self-exams",
+            "Attend routine screenings",
+            "Maintain healthy lifestyle",
+            "Monitor changes",
+            "Follow screening guidelines"
+          ],
+          "moderate": [
+            "Consult a doctor",
+            "Get imaging or mammogram",
+            "Avoid delaying evaluation",
+            "Monitor breast changes",
+            "Follow medical advice"
+          ],
+          "high": [
+            "Seek urgent specialist evaluation",
+            "Get biopsy if recommended",
+            "Do not delay diagnosis",
+            "Begin treatment promptly",
+            "Ensure oncology care"
+          ]
+        }
+      },
+
+      "colorectal-cancer": {
+        "title": "Colorectal Cancer",
+        "risk_thresholds": { "low": 0, "moderate": 10, "high": 18 },
+        "questions": [
+          {
+            "question": "Do you have blood in stool or rectal bleeding?",
+            "options": [
+              { "text": "Yes", "score": 7 },
+              { "text": "Occasionally", "score": 4 },
+              { "text": "No", "score": 0 }
+            ]
+          },
+          {
+            "question": "Have you had persistent change in bowel habits?",
+            "options": [
+              { "text": "Yes", "score": 5 },
+              { "text": "Sometimes", "score": 2 },
+              { "text": "No", "score": 0 }
+            ]
+          },
+          {
+            "question": "Do you experience unexplained weight loss or fatigue?",
+            "options": [
+              { "text": "Yes", "score": 4 },
+              { "text": "Mild", "score": 2 },
+              { "text": "No", "score": 0 }
+            ]
+          },
+          {
+            "question": "Do you have a family history of colon cancer?",
+            "options": [
+              { "text": "Yes", "score": 3 },
+              { "text": "No", "score": 0 }
+            ]
+          }
+        ],
+        "recommendations": {
+          "low": [
+            "Eat high-fiber diet",
+            "Get regular screening",
+            "Exercise regularly",
+            "Monitor bowel habits",
+            "Avoid smoking"
+          ],
+          "moderate": [
+            "Consult a doctor",
+            "Schedule colonoscopy",
+            "Monitor symptoms",
+            "Avoid delay in evaluation",
+            "Follow clinical advice"
+          ],
+          "high": [
+            "Seek urgent gastroenterology care",
+            "Undergo diagnostic tests",
+            "Do not ignore bleeding",
+            "Start oncology referral",
+            "Ensure continuous care"
+          ]
+        }
+      },
+
+      "prostate-cancer": {
+        "title": "Prostate Cancer",
+        "risk_thresholds": { "low": 0, "moderate": 9, "high": 16 },
+        "questions": [
+          {
+            "question": "Do you have difficulty urinating or weak urine flow?",
+            "options": [
+              { "text": "Yes", "score": 4 },
+              { "text": "Mild", "score": 2 },
+              { "text": "No", "score": 0 }
+            ]
+          },
+          {
+            "question": "Do you wake frequently at night to urinate?",
+            "options": [
+              { "text": "Yes", "score": 3 },
+              { "text": "Sometimes", "score": 1 },
+              { "text": "No", "score": 0 }
+            ]
+          },
+          {
+            "question": "Is there blood in urine or semen?",
+            "options": [
+              { "text": "Yes", "score": 6 },
+              { "text": "No", "score": 0 }
+            ]
+          },
+          {
+            "question": "Do you have pelvic or lower back pain?",
+            "options": [
+              { "text": "Yes", "score": 3 },
+              { "text": "No", "score": 0 }
+            ]
+          }
+        ],
+        "recommendations": {
+          "low": [
+            "Regular PSA screening",
+            "Healthy diet",
+            "Exercise",
+            "Monitor urinary symptoms",
+            "Avoid smoking"
+          ],
+          "moderate": [
+            "Consult urologist",
+            "Undergo prostate evaluation",
+            "Follow test results",
+            "Monitor progression",
+            "Follow medical advice"
+          ],
+          "high": [
+            "Seek urgent specialist care",
+            "Get biopsy if recommended",
+            "Begin cancer staging",
+            "Do not delay treatment",
+            "Ensure oncology care"
+          ]
+        }
+      },
+
+      "liver-cancer": {
+        "title": "Liver Cancer",
+        "risk_thresholds": { "low": 0, "moderate": 10, "high": 18 },
+        "questions": [
+          {
+            "question": "Do you have unexplained weight loss or loss of appetite?",
+            "options": [
+              { "text": "Yes", "score": 4 },
+              { "text": "Mild", "score": 2 },
+              { "text": "No", "score": 0 }
+            ]
+          },
+          {
+            "question": "Do you feel pain or swelling in the upper right abdomen?",
+            "options": [
+              { "text": "Yes", "score": 5 },
+              { "text": "Mild", "score": 2 },
+              { "text": "No", "score": 0 }
+            ]
+          },
+          {
+            "question": "Do you have jaundice or dark urine?",
+            "options": [
+              { "text": "Yes", "score": 6 },
+              { "text": "No", "score": 0 }
+            ]
+          },
+          {
+            "question": "Do you have chronic hepatitis or liver disease?",
+            "options": [
+              { "text": "Yes", "score": 5 },
+              { "text": "No", "score": 0 }
+            ]
+          }
+        ],
+        "recommendations": {
+          "low": [
+            "Avoid alcohol",
+            "Get regular liver tests",
+            "Healthy diet",
+            "Vaccinate for hepatitis",
+            "Monitor symptoms"
+          ],
+          "moderate": [
+            "Consult a specialist",
+            "Get imaging tests",
+            "Monitor liver function",
+            "Avoid harmful drugs",
+            "Follow medical guidance"
+          ],
+          "high": [
+            "Seek urgent oncology care",
+            "Begin cancer staging",
+            "Follow treatment plan",
+            "Avoid delays",
+            "Ensure close monitoring"
+          ]
+        }
+      },
+
+      "pancreatic-cancer": {
+        "title": "Pancreatic Cancer",
+        "risk_thresholds": { "low": 0, "moderate": 10, "high": 18 },
+        "questions": [
+          {
+            "question": "Do you have persistent upper abdominal or back pain?",
+            "options": [
+              { "text": "Yes", "score": 5 },
+              { "text": "Mild", "score": 2 },
+              { "text": "No", "score": 0 }
+            ]
+          },
+          {
+            "question": "Have you experienced unexplained weight loss?",
+            "options": [
+              { "text": "Yes", "score": 5 },
+              { "text": "No", "score": 0 }
+            ]
+          },
+          {
+            "question": "Do you have jaundice or pale stools?",
+            "options": [
+              { "text": "Yes", "score": 6 },
+              { "text": "No", "score": 0 }
+            ]
+          },
+          {
+            "question": "Do you have diabetes or smoking history?",
+            "options": [
+              { "text": "Yes", "score": 3 },
+              { "text": "No", "score": 0 }
+            ]
+          }
+        ],
+        "recommendations": {
+          "low": [
+            "Maintain healthy weight",
+            "Avoid smoking",
+            "Monitor digestive health",
+            "Get routine checkups",
+            "Healthy diet"
+          ],
+          "moderate": [
+            "Consult a gastroenterologist",
+            "Get imaging tests",
+            "Monitor symptoms",
+            "Avoid delays",
+            "Follow medical advice"
+          ],
+          "high": [
+            "Seek urgent oncology care",
+            "Begin staging",
+            "Do not delay diagnosis",
+            "Start treatment promptly",
+            "Ensure full medical supervision"
+          ]
+        }
+      },
+
+      "leukemia": {
+        "title": "Leukemia",
+        "risk_thresholds": { "low": 0, "moderate": 10, "high": 18 },
+        "questions": [
+          {
+            "question": "Do you feel extreme fatigue or weakness?",
+            "options": [
+              { "text": "Yes", "score": 4 },
+              { "text": "Mild", "score": 2 },
+              { "text": "No", "score": 0 }
+            ]
+          },
+          {
+            "question": "Do you have frequent infections or fevers?",
+            "options": [
+              { "text": "Yes", "score": 5 },
+              { "text": "Occasionally", "score": 2 },
+              { "text": "No", "score": 0 }
+            ]
+          },
+          {
+            "question": "Do you have easy bruising or bleeding?",
+            "options": [
+              { "text": "Yes", "score": 6 },
+              { "text": "No", "score": 0 }
+            ]
+          },
+          {
+            "question": "Have you noticed swollen lymph nodes or bone pain?",
+            "options": [
+              { "text": "Yes", "score": 5 },
+              { "text": "No", "score": 0 }
+            ]
+          }
+        ],
+        "recommendations": {
+          "low": [
+            "Maintain balanced nutrition",
+            "Get routine blood tests",
+            "Monitor energy levels",
+            "Avoid infections",
+            "Regular checkups"
+          ],
+          "moderate": [
+            "Consult a hematologist",
+            "Get blood investigations",
+            "Monitor symptoms",
+            "Avoid delays",
+            "Follow medical advice"
+          ],
+          "high": [
+            "Seek urgent hematology care",
+            "Begin diagnostic workup",
+            "Start treatment promptly",
+            "Avoid exposure to infections",
+            "Ensure continuous care"
+          ]
+        }
+      },
+
+      "lymphoma": {
+        "title": "Lymphoma",
+        "risk_thresholds": { "low": 0, "moderate": 10, "high": 18 },
+        "questions": [
+          {
+            "question": "Do you have painless swollen lymph nodes?",
+            "options": [
+              { "text": "Yes", "score": 6 },
+              { "text": "Not sure", "score": 3 },
+              { "text": "No", "score": 0 }
+            ]
+          },
+          {
+            "question": "Do you experience night sweats or fever?",
+            "options": [
+              { "text": "Yes", "score": 5 },
+              { "text": "Mild", "score": 2 },
+              { "text": "No", "score": 0 }
+            ]
+          },
+          {
+            "question": "Have you lost weight without trying?",
+            "options": [
+              { "text": "Yes", "score": 4 },
+              { "text": "No", "score": 0 }
+            ]
+          },
+          {
+            "question": "Do you feel persistent fatigue?",
+            "options": [
+              { "text": "Yes", "score": 3 },
+              { "text": "No", "score": 0 }
+            ]
+          }
+        ],
+        "recommendations": {
+          "low": [
+            "Monitor lymph nodes",
+            "Maintain immunity",
+            "Healthy lifestyle",
+            "Regular checkups",
+            "Avoid infections"
+          ],
+          "moderate": [
+            "Consult an oncologist",
+            "Get imaging and biopsy",
+            "Monitor progression",
+            "Follow medical advice",
+            "Do not delay tests"
+          ],
+          "high": [
+            "Seek urgent cancer care",
+            "Begin staging",
+            "Start therapy promptly",
+            "Ensure oncology supervision",
+            "Follow treatment plan"
+          ]
+        }
+      },
+
+      "brain-cancer": {
+        "title": "Brain Cancer",
+        "risk_thresholds": { "low": 0, "moderate": 12, "high": 20 },
+        "questions": [
+          {
+            "question": "Do you have persistent or worsening headaches?",
+            "options": [
+              { "text": "Yes", "score": 5 },
+              { "text": "Sometimes", "score": 2 },
+              { "text": "No", "score": 0 }
+            ]
+          },
+          {
+            "question": "Do you have seizures or fainting episodes?",
+            "options": [
+              { "text": "Yes", "score": 10, "critical": true },
+              { "text": "No", "score": 0 }
+            ]
+          },
+          {
+            "question": "Do you experience vision, speech, or memory problems?",
+            "options": [
+              { "text": "Yes", "score": 5 },
+              { "text": "Mild", "score": 2 },
+              { "text": "No", "score": 0 }
+            ]
+          },
+          {
+            "question": "Do you have weakness or numbness on one side?",
+            "options": [
+              { "text": "Yes", "score": 5 },
+              { "text": "No", "score": 0 }
+            ]
+          }
+        ],
+        "recommendations": {
+          "low": [
+            "Monitor neurological symptoms",
+            "Maintain healthy lifestyle",
+            "Get routine checkups",
+            "Avoid head injury",
+            "Track headaches"
+          ],
+          "moderate": [
+            "Consult neurologist",
+            "Get brain imaging",
+            "Monitor symptoms",
+            "Follow medical guidance",
+            "Avoid delays"
+          ],
+          "high": [
+            "Seek urgent neurological care",
+            "Hospital evaluation",
+            "Begin diagnostic workup",
+            "Ensure continuous supervision",
+            "Follow emergency protocols"
+          ]
+        }
+      },
+
+      "ovarian-cancer": {
+        "title": "Ovarian Cancer",
+        "risk_thresholds": { "low": 0, "moderate": 10, "high": 18 },
+        "questions": [
+          {
+            "question": "Do you have persistent bloating or pelvic discomfort?",
+            "options": [
+              { "text": "Yes", "score": 5 },
+              { "text": "Mild", "score": 2 },
+              { "text": "No", "score": 0 }
+            ]
+          },
+          {
+            "question": "Do you feel full quickly when eating?",
+            "options": [
+              { "text": "Yes", "score": 4 },
+              { "text": "No", "score": 0 }
+            ]
+          },
+          {
+            "question": "Do you have urinary urgency or frequency?",
+            "options": [
+              { "text": "Yes", "score": 3 },
+              { "text": "No", "score": 0 }
+            ]
+          },
+          {
+            "question": "Is there a family history of ovarian or breast cancer?",
+            "options": [
+              { "text": "Yes", "score": 4 },
+              { "text": "No", "score": 0 }
+            ]
+          }
+        ],
+        "recommendations": {
+          "low": [
+            "Routine gynecologic checkups",
+            "Healthy diet",
+            "Monitor abdominal symptoms",
+            "Regular exercise",
+            "Know family history"
+          ],
+          "moderate": [
+            "Consult gynecologist",
+            "Get pelvic ultrasound",
+            "Monitor symptoms",
+            "Follow medical advice",
+            "Avoid delays"
+          ],
+          "high": [
+            "Seek urgent oncology evaluation",
+            "Get imaging and biopsy",
+            "Begin staging",
+            "Start treatment promptly",
+            "Ensure specialized care"
+          ]
+        }
+      },
+
+      "cervical-cancer": {
+        "title": "Cervical Cancer",
+        "risk_thresholds": { "low": 0, "moderate": 10, "high": 18 },
+        "questions": [
+          {
+            "question": "Do you have abnormal vaginal bleeding?",
+            "options": [
+              { "text": "Yes", "score": 6 },
+              { "text": "Occasionally", "score": 3 },
+              { "text": "No", "score": 0 }
+            ]
+          },
+          {
+            "question": "Do you have pelvic pain or pain during intercourse?",
+            "options": [
+              { "text": "Yes", "score": 4 },
+              { "text": "Mild", "score": 2 },
+              { "text": "No", "score": 0 }
+            ]
+          },
+          {
+            "question": "Do you have unusual vaginal discharge?",
+            "options": [
+              { "text": "Yes", "score": 4 },
+              { "text": "No", "score": 0 }
+            ]
+          },
+          {
+            "question": "Have you skipped regular Pap smears?",
+            "options": [
+              { "text": "Yes", "score": 3 },
+              { "text": "No", "score": 0 }
+            ]
+          }
+        ],
+        "recommendations": {
+          "low": [
+            "Regular Pap smear",
+            "HPV vaccination",
+            "Safe sexual practices",
+            "Monitor symptoms",
+            "Healthy lifestyle"
+          ],
+          "moderate": [
+            "Consult gynecologist",
+            "Get screening tests",
+            "Follow up promptly",
+            "Avoid delays",
+            "Monitor symptoms"
+          ],
+          "high": [
+            "Seek urgent oncology care",
+            "Get biopsy and imaging",
+            "Begin treatment",
+            "Follow specialist advice",
+            "Ensure continuous care"
+          ]
+        }
+      },
+
+      "thyroid-cancer": {
+        "title": "Thyroid Cancer",
+        "risk_thresholds": { "low": 0, "moderate": 9, "high": 16 },
+        "questions": [
+          {
+            "question": "Do you have a lump or swelling in the neck?",
+            "options": [
+              { "text": "Yes", "score": 5 },
+              { "text": "Small lump", "score": 2 },
+              { "text": "No", "score": 0 }
+            ]
+          },
+          {
+            "question": "Do you have hoarseness or difficulty swallowing?",
+            "options": [
+              { "text": "Yes", "score": 4 },
+              { "text": "Mild", "score": 2 },
+              { "text": "No", "score": 0 }
+            ]
+          },
+          {
+            "question": "Is the lump growing or painful?",
+            "options": [
+              { "text": "Yes", "score": 4 },
+              { "text": "No", "score": 0 }
+            ]
+          },
+          {
+            "question": "Do you have a family history of thyroid cancer?",
+            "options": [
+              { "text": "Yes", "score": 3 },
+              { "text": "No", "score": 0 }
+            ]
+          }
+        ],
+        "recommendations": {
+          "low": [
+            "Monitor neck lumps",
+            "Routine checkups",
+            "Healthy lifestyle",
+            "Avoid radiation exposure",
+            "Track changes"
+          ],
+          "moderate": [
+            "Consult endocrinologist",
+            "Get thyroid ultrasound",
+            "Monitor nodules",
+            "Follow medical advice",
+            "Avoid delays"
+          ],
+          "high": [
+            "Seek urgent specialist care",
+            "Get biopsy",
+            "Begin cancer staging",
+            "Start treatment promptly",
+            "Ensure oncology care"
+          ]
+        }
+      },
+
+      "kidney-cancer": {
+        "title": "Kidney Cancer",
+        "risk_thresholds": { "low": 0, "moderate": 10, "high": 18 },
+        "questions": [
+          {
+            "question": "Do you have blood in your urine?",
+            "options": [
+              { "text": "Yes", "score": 7 },
+              { "text": "Occasionally", "score": 4 },
+              { "text": "No", "score": 0 }
+            ]
+          },
+          {
+            "question": "Do you have persistent lower back or side pain?",
+            "options": [
+              { "text": "Yes", "score": 5 },
+              { "text": "Mild", "score": 2 },
+              { "text": "No", "score": 0 }
+            ]
+          },
+          {
+            "question": "Do you feel fatigued or have unexplained weight loss?",
+            "options": [
+              { "text": "Yes", "score": 4 },
+              { "text": "No", "score": 0 }
+            ]
+          },
+          {
+            "question": "Do you have high blood pressure or smoking history?",
+            "options": [
+              { "text": "Yes", "score": 2 },
+              { "text": "No", "score": 0 }
+            ]
+          }
+        ],
+        "recommendations": {
+          "low": [
+            "Stay hydrated",
+            "Avoid smoking",
+            "Monitor urinary symptoms",
+            "Regular health checkups",
+            "Maintain healthy weight"
+          ],
+          "moderate": [
+            "Consult a urologist",
+            "Get imaging studies",
+            "Monitor symptoms",
+            "Avoid delays",
+            "Follow medical advice"
+          ],
+          "high": [
+            "Seek urgent oncology care",
+            "Get CT or MRI scan",
+            "Begin staging",
+            "Do not delay diagnosis",
+            "Ensure specialist care"
+          ]
+        }
+      },
+
+      "bladder-cancer": {
+        "title": "Bladder Cancer",
+        "risk_thresholds": { "low": 0, "moderate": 10, "high": 18 },
+        "questions": [
+          {
+            "question": "Do you have blood in your urine?",
+            "options": [
+              { "text": "Yes", "score": 7 },
+              { "text": "Sometimes", "score": 4 },
+              { "text": "No", "score": 0 }
+            ]
+          },
+          {
+            "question": "Do you feel pain or burning while urinating?",
+            "options": [
+              { "text": "Yes", "score": 4 },
+              { "text": "Mild", "score": 2 },
+              { "text": "No", "score": 0 }
+            ]
+          },
+          {
+            "question": "Do you need to urinate frequently or urgently?",
+            "options": [
+              { "text": "Yes", "score": 3 },
+              { "text": "No", "score": 0 }
+            ]
+          },
+          {
+            "question": "Do you have a smoking or chemical exposure history?",
+            "options": [
+              { "text": "Yes", "score": 4 },
+              { "text": "No", "score": 0 }
+            ]
+          }
+        ],
+        "recommendations": {
+          "low": [
+            "Avoid smoking",
+            "Stay hydrated",
+            "Monitor urinary symptoms",
+            "Routine checkups",
+            "Healthy lifestyle"
+          ],
+          "moderate": [
+            "Consult a urologist",
+            "Get urine tests",
+            "Schedule cystoscopy",
+            "Monitor symptoms",
+            "Follow medical advice"
+          ],
+          "high": [
+            "Seek urgent specialist care",
+            "Get biopsy and imaging",
+            "Begin treatment",
+            "Avoid delays",
+            "Ensure oncology care"
+          ]
+        }
+      },
+
+      "oral-cancer": {
+        "title": "Oral Cancer",
+        "risk_thresholds": { "low": 0, "moderate": 9, "high": 16 },
+        "questions": [
+          {
+            "question": "Do you have a non-healing mouth ulcer or sore?",
+            "options": [
+              { "text": "Yes", "score": 5 },
+              { "text": "Sometimes", "score": 2 },
+              { "text": "No", "score": 0 }
+            ]
+          },
+          {
+            "question": "Do you have difficulty chewing or swallowing?",
+            "options": [
+              { "text": "Yes", "score": 4 },
+              { "text": "Mild", "score": 2 },
+              { "text": "No", "score": 0 }
+            ]
+          },
+          {
+            "question": "Do you have a lump in the mouth or neck?",
+            "options": [
+              { "text": "Yes", "score": 4 },
+              { "text": "No", "score": 0 }
+            ]
+          },
+          {
+            "question": "Do you smoke, chew tobacco, or drink alcohol?",
+            "options": [
+              { "text": "Yes", "score": 3 },
+              { "text": "No", "score": 0 }
+            ]
+          }
+        ],
+        "recommendations": {
+          "low": [
+            "Maintain oral hygiene",
+            "Avoid tobacco",
+            "Regular dental checkups",
+            "Healthy diet",
+            "Monitor mouth changes"
+          ],
+          "moderate": [
+            "Consult a dentist or ENT",
+            "Get oral examination",
+            "Monitor lesions",
+            "Avoid risk factors",
+            "Follow medical advice"
+          ],
+          "high": [
+            "Seek urgent oncology care",
+            "Get biopsy",
+            "Begin staging",
+            "Start treatment",
+            "Ensure specialist supervision"
+          ]
+        }
+      },
+
+      "anemia": {
+        "title": "Anemia",
+        "risk_thresholds": { "low": 0, "moderate": 7, "high": 14 },
+        "questions": [
+          {
+            "question": "Do you feel tired, weak, or short of breath?",
+            "options": [
+              { "text": "Yes", "score": 4 },
+              { "text": "Sometimes", "score": 2 },
+              { "text": "No", "score": 0 }
+            ]
+          },
+          {
+            "question": "Do you feel dizzy or have headaches?",
+            "options": [
+              { "text": "Yes", "score": 3 },
+              { "text": "Occasionally", "score": 1 },
+              { "text": "No", "score": 0 }
+            ]
+          },
+          {
+            "question": "Is your skin pale or yellowish?",
+            "options": [
+              { "text": "Yes", "score": 3 },
+              { "text": "Mild", "score": 1 },
+              { "text": "No", "score": 0 }
+            ]
+          },
+          {
+            "question": "Do you have heavy bleeding or poor diet?",
+            "options": [
+              { "text": "Yes", "score": 4 },
+              { "text": "No", "score": 0 }
+            ]
+          }
+        ],
+        "recommendations": {
+          "low": [
+            "Eat iron-rich foods",
+            "Stay hydrated",
+            "Get adequate rest",
+            "Monitor energy",
+            "Healthy diet"
+          ],
+          "moderate": [
+            "Consult a doctor",
+            "Get blood tests",
+            "Take supplements if prescribed",
+            "Monitor symptoms",
+            "Follow medical advice"
+          ],
+          "high": [
+            "Seek medical evaluation",
+            "Identify bleeding or deficiency cause",
+            "Follow treatment plan",
+            "Avoid delays",
+            "Ensure follow-up"
+          ]
+        }
+      },
+
+      "urinary-tract-infection": {
+        "title": "Urinary Tract Infection (UTI)",
+        "risk_thresholds": { "low": 0, "moderate": 6, "high": 12 },
+        "questions": [
+          {
+            "question": "Do you have burning or pain during urination?",
+            "options": [
+              { "text": "Yes", "score": 4 },
+              { "text": "Mild", "score": 2 },
+              { "text": "No", "score": 0 }
+            ]
+          },
+          {
+            "question": "Do you urinate frequently or urgently?",
+            "options": [
+              { "text": "Yes", "score": 3 },
+              { "text": "Sometimes", "score": 1 },
+              { "text": "No", "score": 0 }
+            ]
+          },
+          {
+            "question": "Is your urine cloudy, foul-smelling, or bloody?",
+            "options": [
+              { "text": "Yes", "score": 4 },
+              { "text": "Mild change", "score": 2 },
+              { "text": "No", "score": 0 }
+            ]
+          },
+          {
+            "question": "Do you have fever or back pain?",
+            "options": [
+              { "text": "Yes", "score": 6, "critical": true },
+              { "text": "No", "score": 0 }
+            ]
+          }
+        ],
+        "recommendations": {
+          "low": [
+            "Drink plenty of fluids",
+            "Maintain hygiene",
+            "Urinate regularly",
+            "Avoid holding urine",
+            "Monitor symptoms"
+          ],
+          "moderate": [
+            "Consult a doctor",
+            "Get urine test",
+            "Take antibiotics if prescribed",
+            "Increase fluids",
+            "Monitor fever"
+          ],
+          "high": [
+            "Seek urgent medical care",
+            "Prevent kidney infection",
+            "Start antibiotics immediately",
+            "Follow treatment strictly",
+            "Ensure medical supervision"
+          ]
+        }
+      }
     }
   },
 
