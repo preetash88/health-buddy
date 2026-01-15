@@ -152,6 +152,7 @@
     "inputTitle": "Describe Your Symptoms",
     "placeholder": "Example: headache and fever since last 2 days",
     "minChars": "characters minimum",
+    "tip":"Tip: Adding duration or severity improves accuracy.",
     "cta": "Analyze My Symptoms",
     "loading": "Analyzing...",
     "invalid": {
@@ -166,7 +167,7 @@
     "immediateAdvice": "Immediate Advice",
     "suggestedConditions": "Suggested Conditions to Check",
     "check": "Check",
-    "disclaimer": "This is not a diagnosis. Please consult a healthcare professional.",
+    "disclaimer": "This information is provided to informational purposes only and should not considered a diagnosis. Please consult a healthcare professional for personalized medical advice.",
     "config": {
       "minCharCount": 30,
       "symptomScores": {

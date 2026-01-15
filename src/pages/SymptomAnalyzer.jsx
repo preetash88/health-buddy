@@ -238,7 +238,7 @@ export default function SymptomAnalyzer() {
           </p>
 
           <p className="text-xs text-gray-500 mt-1">
-            Tip: Adding duration or severity improves accuracy.
+            {t("SymptomAnalyzer.tip")}
           </p>
 
           <button
@@ -336,7 +336,7 @@ export default function SymptomAnalyzer() {
               ))}
             </div>
 
-            <div className="mt-6 text-xs text-gray-500 flex items-center gap-2">
+            <div className="mt-6 px-3 py-3 text-xs text-gray-600 bg-gray-100 flex items-center gap-2 rounded-xl shadow-md border">
               <Info size={14} />
               {t("SymptomAnalyzer.disclaimer")}
             </div>
