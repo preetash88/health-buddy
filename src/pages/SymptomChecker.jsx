@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { Activity, Search, Info } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
@@ -23,6 +23,17 @@ export default function SymptomChecker() {
 
   const [activeCategory, setActiveCategory] = useState("all");
   const [search, setSearch] = useState("");
+
+  useEffect(() => {
+    const y = sessionStorage.getItem("symptomScroll");
+    if (y) {
+      setTimeout(() => {
+        window.scrollTo(0, Number(y));
+        sessionStorage.removeItem("symptomScroll");
+      }, 0);
+    }
+  }, []);
+
 
   const diseases = useMemo(() => {
     const data = t("SymptomChecker.data", { returnObjects: true });
@@ -131,6 +142,9 @@ export default function SymptomChecker() {
 
               <Link
                 to={`/assessment/${d.id}`}
+                onClick={() => {
+                  sessionStorage.setItem("symptomScroll", window.scrollY);
+                }}
                 className="mt-6 w-full py-3 rounded-xl text-center bg-black text-white"
               >
                 {t("SymptomChecker.startAssessment")} →
