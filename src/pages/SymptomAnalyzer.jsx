@@ -481,7 +481,7 @@
 // }
 
 //***************************************************************************************** */
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   MessageSquare,
   Info,
@@ -689,6 +689,30 @@ export default function SymptomAnalyzer() {
     !isTextClearEnough(text, 0.2) &&
     result.status !== "done";
 
+  // Restore state on mount
+  useEffect(() => {
+    const saved = sessionStorage.getItem("symptomAnalyzerState");
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      setText(parsed.text || "");
+      setResult(parsed.result || { status: "idle" });
+    }
+  }, []);
+
+  // Persist state on change
+  useEffect(() => {
+    sessionStorage.setItem(
+      "symptomAnalyzerState",
+      JSON.stringify({ text, result })
+    );
+  }, [text, result]);
+
+  const clearAnalyzerState = () => {
+    sessionStorage.removeItem("symptomAnalyzerState");
+    setText("");
+    setResult({ status: "idle" });
+  };
+
   /* ---------------- UI ---------------- */
   return (
     <main className="min-h-screen bg-linear-to-b from-slate-50 to-white pt-16 pb-32">
@@ -764,17 +788,27 @@ export default function SymptomAnalyzer() {
 
         {/* INVALID */}
         {(result.status === "invalid" || shouldShowInvalid) && (
-          <div className="mt-10 rounded-xl border border-yellow-400 bg-yellow-100 px-5 py-4 flex gap-3 text-yellow-700 shadow-lg">
-            <AlertCircle className="w-6 h-6 mt-1" />
-            <div>
-              <p className="font-semibold text-lg">
-                {t("SymptomAnalyzer.invalid.title")}
-              </p>
-              <p className="text-sm mt-1">
-                {t("SymptomAnalyzer.invalid.message")}
-              </p>
+          <>
+            <div className="mt-10 rounded-xl border border-yellow-400 bg-yellow-100 px-5 py-4 flex gap-3 text-yellow-700 shadow-lg">
+              <AlertCircle className="w-6 h-6 mt-1" />
+              <div>
+                <p className="font-semibold text-lg">
+                  {t("SymptomAnalyzer.invalid.title")}
+                </p>
+                <p className="text-sm mt-1">
+                  {t("SymptomAnalyzer.invalid.message")}
+                </p>
+              </div>
             </div>
-          </div>
+            <div className="mt-4 flex text-center">
+              <button
+                onClick={clearAnalyzerState}
+                className="flex-1 inline-flex justify-center bg-gray-500 text-white items-center border py-2.5 cursor-pointer shadow-lg rounded-xl hover:bg-gray-200 hover:text-black"
+              >
+                Start over
+              </button>
+            </div>
+          </>
         )}
 
         {/* DONE */}
@@ -832,7 +866,7 @@ export default function SymptomAnalyzer() {
                   </div>
 
                   <button
-                    onClick={() => navigate("/symptom-checker")}
+                    onClick={() => window.open("/symptom-checker", "_blank")}
                     className="inline-flex items-center cursor-pointer gap-1.5 h-9 px-4 rounded-lg bg-blue-600 text-white text-sm hover:bg-blue-700 transition"
                   >
                     {t("SymptomAnalyzer.check")}
@@ -847,17 +881,26 @@ export default function SymptomAnalyzer() {
             </div>
             <div className="mt-6 flex gap-4">
               <button
-                onClick={() => navigate("/symptom-checker")}
+                onClick={() => window.open("/symptom-checker", "_blank")}
                 className="flex-1 bg-black text-white cursor-pointer shadow-lg py-2.5 rounded-xl hover:bg-gray-800"
               >
                 {t("SymptomAnalyzer.actions.symptomChecker")}
               </button>
               <button
-                onClick={() => navigate("/clinics")}
+                onClick={() => window.open("/clinics", "_blank")}
                 className="flex-1 inline-flex justify-center items-center border py-2.5 cursor-pointer shadow-lg rounded-xl hover:bg-gray-200"
               >
                 {t("SymptomAnalyzer.actions.findClinics")}
                 <ExternalLink className="w-4 h-4 mx-2 opacity-80" />
+              </button>
+            </div>
+
+            <div className="mt-4 flex text-center">
+              <button
+                onClick={clearAnalyzerState}
+                className="flex-1 inline-flex justify-center bg-gray-500 text-white items-center border py-2.5 cursor-pointer shadow-lg rounded-xl hover:bg-gray-200 hover:text-black"
+              >
+                Start over
               </button>
             </div>
           </>
