@@ -3,6 +3,14 @@
 /* ⚠️ TAILWIND V4 FORCE CLASS STRATEGY ⚠️ */
 @variant dark (&:where(.dark, .dark *));
 
+:root {
+  --page-bg: #ffffff;
+}
+
+html.dark {
+  --page-bg: #131314;
+}
+
 /* Global styles — plain CSS only */
 html,
 body {
@@ -19,8 +27,11 @@ body {
    If the feature flag is off, this code is ignored.
 */
 html.dark body {
-  background-color: #0f172a; /* slate-900 (Dark Background) */
-  color: #f1f5f9;            /* slate-100 (Light Text) */
+  /* CHANGED: From #0f172a (Blue Slate) to #131314 (Gemini/Soft Dark) */
+  background-color: #131314; 
+  
+  /* CHANGED: Slightly softer white for text to reduce contrast strain */
+  color: #e3e3e3;            
 }
 
 /* ========================================================================
