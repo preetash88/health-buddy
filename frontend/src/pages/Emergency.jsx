@@ -107,7 +107,7 @@ export default function Emergency() {
                            shadow-sm transition-all duration-300 cursor-pointer
                            hover:shadow-xl hover:-translate-y-1 overflow-hidden
                            bg-white border-gray-200
-                           dark:bg-[#1e293b] dark:border-gray-700 dark:hover:border-red-500/50"
+                           dark:bg-[#1e293b] dark:border-gray-700 dark:hover:border-red-500/50 dark:hover:shadow-gray-800"
                 >
                   <div className="h-1 bg-red-600 w-full" />
 

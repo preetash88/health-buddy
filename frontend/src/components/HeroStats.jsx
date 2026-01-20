@@ -23,17 +23,36 @@ export default function HeroStats() {
             return (
               <div
                 key={index}
-                className="bg-white rounded-2xl shadow-lg px-6 py-8 text-center hover:shadow-2xl transition-shadow"
+                className="
+                  rounded-2xl shadow-lg px-6 py-8 text-center 
+                  transition-all duration-300 hover:shadow-2xl hover:-translate-y-1
+                  bg-white 
+                  dark:bg-[#1e293b] dark:border dark:border-slate-800 dark:shadow-black/40  dark:text-gray-300
+                "
               >
                 {Icon && (
-                  <Icon className="w-8 h-8 mx-auto mb-4 text-blue-600" />
+                  <Icon
+                    className="w-8 h-8 mx-auto mb-4 transition-colors duration-300
+                    text-blue-600 
+                    dark:text-blue-400"
+                  />
                 )}
 
-                <div className="text-3xl font-bold text-gray-900">
+                <div
+                  className="text-3xl font-bold transition-colors duration-300
+                  text-gray-900 
+                  dark:text-white"
+                >
                   {stat.value}
                 </div>
 
-                <div className="mt-2 text-sm text-gray-600">{stat.label}</div>
+                <div
+                  className="mt-2 text-sm transition-colors duration-300
+                  text-gray-600 
+                  dark:text-gray-400"
+                >
+                  {stat.label}
+                </div>
               </div>
             );
           })}

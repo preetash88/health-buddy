@@ -8,12 +8,12 @@ export default function HeroJourney() {
 
   return (
     <section className="relative w-full overflow-hidden">
-      {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-r from-blue-600 via-blue-500 to-green-500" />
+      {/* Background gradient - Slightly dimmed in dark mode for better text contrast */}
+      <div className="absolute inset-0 bg-gradient-to-r from-blue-600 via-blue-500 to-green-500 dark:opacity-90 transition-opacity duration-300" />
 
       {/* Background image overlay */}
       <div
-        className="absolute inset-0 opacity-15 bg-cover bg-center"
+        className="absolute inset-0 opacity-15 bg-cover bg-center mix-blend-overlay"
         style={{
           backgroundImage:
             "url('https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=1600')",
@@ -22,21 +22,21 @@ export default function HeroJourney() {
 
       {/* Content */}
       <div className="relative z-10 max-w-5xl mx-auto px-6 py-20 text-center text-white">
-        {/* Badge */}
-        <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-white/20 text-sm mb-6">
+        {/* Badge - Adjusted for Dark Mode Glassmorphism */}
+        <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-white/20 backdrop-blur-sm border border-white/10 text-sm mb-6 shadow-sm">
           ✨ {t("HeroJourney.badge")}
         </div>
 
         {/* Heading */}
-        <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold leading-tight">
+        <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold leading-tight drop-shadow-sm  dark:text-gray-300">
           {t("HeroJourney.headingLine1")}
-          <span className="block text-lime-300 mt-2">
+          <span className="block text-lime-300 mt-2 filter drop-shadow-md">
             {t("HeroJourney.headingLine2")}
           </span>
         </h1>
 
         {/* Description */}
-        <p className="mt-6 max-w-3xl mx-auto text-lg text-white/90">
+        <p className="mt-6 max-w-3xl mx-auto text-lg text-white/90 font-medium">
           {t("HeroJourney.description")}
         </p>
 
@@ -53,7 +53,7 @@ export default function HeroJourney() {
               hover:scale-110 hover:-translate-y-0.5
               hover:shadow-[0_20px_40px_rgba(37,99,235,0.25)]
               active:scale-95
-              cursor-pointer
+              cursor-pointer dark:bg-gray-200
             "
           >
             <Activity className="w-5 h-5 pointer-events-none" />
@@ -62,8 +62,17 @@ export default function HeroJourney() {
         </div>
       </div>
 
-      {/* Bottom fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white to-transparent" />
+      {/* 👇 THE FIX IS HERE 👇
+         Seamless Transition Fade:
+         - Light Mode: Fades to White
+         - Dark Mode: Fades to Slate-950 (Matching your page background)
+      */}
+      <div
+        className="absolute bottom-0 left-0 right-0 h-32 transition-colors duration-300
+        bg-gradient-to-t 
+        from-white via-white/80 to-transparent
+        dark:from-slate-950 dark:via-slate-950/80 dark:to-transparent"
+      />
     </section>
   );
 }
