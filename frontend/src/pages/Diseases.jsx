@@ -143,6 +143,46 @@ export default function Diseases() {
           </div>
         </div>
 
+        {/* Empty State */}
+        {filteredDiseases.length === 0 && (
+          <div className="mt-16 flex flex-col items-center text-center px-4">
+            <Search className="w-12 h-12 mb-4 text-gray-400 dark:text-gray-500" />
+
+            <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
+              No diseases found
+            </h3>
+
+            <p className="mt-2 text-sm max-w-md text-gray-600 dark:text-gray-400">
+              We couldn’t find any diseases matching{" "}
+              <span className="font-medium text-gray-900 dark:text-gray-200">
+                “{search}”
+              </span>
+              . Try a different keyword or select another category.
+            </p>
+
+            {(search || activeCategory !== "all") && (
+              <button
+                onClick={() => {
+                  setSearch("");
+                  setActiveCategory("all");
+                }}
+                className="
+      mt-6 px-5 py-2.5 text-sm font-semibold rounded-lg
+      bg-black text-white
+      border border-gray-300
+      shadow-md shadow-black/20
+      hover:bg-gray-700 hover:shadow-lg cursor-pointer
+      active:scale-[0.98]
+      transition-all duration-200
+      dark:bg-white dark:text-black dark:border-gray-300 dark:hover:bg-gray-400
+    "
+              >
+                Clear filters
+              </button>
+            )}
+          </div>
+        )}
+
         {/* Disease Cards */}
         <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 auto-rows-fr">
           {filteredDiseases.map((d) => (

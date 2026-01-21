@@ -133,51 +133,92 @@ export default function SymptomChecker() {
           </div>
         </div>
 
+        {/* Empty State */}
+        {filteredDiseases.length === 0 && (
+          <div className="mt-16 flex flex-col items-center text-center px-4">
+            <Search className="w-12 h-12 mb-4 text-gray-400 dark:text-gray-500" />
+
+            <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
+              No conditions found
+            </h3>
+
+            <p className="mt-2 text-sm max-w-md text-gray-600 dark:text-gray-400">
+              We couldn’t find any conditions matching{" "}
+              <span className="font-medium text-gray-900 dark:text-gray-200">
+                “{search}”
+              </span>
+              . Try a different keyword or select another category.
+            </p>
+
+            {(search || activeCategory !== "all") && (
+              <button
+                onClick={() => {
+                  setSearch("");
+                  setActiveCategory("all");
+                }}
+                className="
+          mt-6 px-5 py-2.5 text-sm font-semibold rounded-lg
+          bg-white text-black
+          border border-gray-300
+          shadow-md shadow-black/20
+          hover:bg-gray-100 hover:shadow-lg
+          active:scale-[0.98]
+          transition-all duration-200
+          cursor-pointer
+        "
+              >
+                Clear filters
+              </button>
+            )}
+          </div>
+        )}
+
         {/* Cards */}
-        <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {filteredDiseases.map((d) => (
-            <div
-              key={d.id}
-              className="group rounded-2xl border p-6
+        {filteredDiseases.length > 0 && (
+          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {filteredDiseases.map((d) => (
+              <div
+                key={d.id}
+                className="group rounded-2xl border p-6
                 shadow-sm
                 transition-all duration-300 ease-out
                 hover:-translate-y-1 hover:shadow-xl hover:border-blue-500
                 flex flex-col justify-between
                 bg-white border-gray-200
                 dark:bg-[#1e293b] dark:border-gray-700 dark:hover:border-blue-400 dark:hover:shadow-gray-700"
-            >
-              <div>
-                <span
-                  className="inline-block mb-3 px-3 py-1 rounded-xl text-xs font-medium 
+              >
+                <div>
+                  <span
+                    className="inline-block mb-3 px-3 py-1 rounded-xl text-xs font-medium 
                   bg-black text-white 
                   dark:bg-blue-600 dark:text-gray-300"
-                >
-                  {t(`SymptomChecker.categories.${d.category}`)}
-                </span>
+                  >
+                    {t(`SymptomChecker.categories.${d.category}`)}
+                  </span>
 
-                <h3 className="text-lg font-bold mb-2 transition-colors duration-300 text-gray-900 dark:text-white">
-                  {d.name}
-                </h3>
+                  <h3 className="text-lg font-bold mb-2 transition-colors duration-300 text-gray-900 dark:text-white">
+                    {d.name}
+                  </h3>
 
-                <p className="text-sm transition-colors duration-300 text-gray-600 dark:text-gray-400">
-                  {d.description || t("SymptomChecker.noDescription")}
-                </p>
-              </div>
+                  <p className="text-sm transition-colors duration-300 text-gray-600 dark:text-gray-400">
+                    {d.description || t("SymptomChecker.noDescription")}
+                  </p>
+                </div>
 
-              <Link
-                to={`/assessment/${d.id}`}
-                onClick={() => {
-                  sessionStorage.setItem("symptomScroll", window.scrollY);
-                }}
-                className="mt-6 w-full py-3 rounded-xl text-center font-medium cursor-pointer transition-colors duration-300
+                <Link
+                  to={`/assessment/${d.id}`}
+                  onClick={() => {
+                    sessionStorage.setItem("symptomScroll", window.scrollY);
+                  }}
+                  className="mt-6 w-full py-3 rounded-xl text-center font-medium cursor-pointer transition-colors duration-300
                   bg-gray-300 text-black hover:bg-black hover:text-white
                   dark:bg-slate-700 dark:text-gray-300 dark:hover:bg-blue-600"
-              >
-                {t("SymptomChecker.startAssessment")} →
-              </Link>
-            </div>
-          ))}
-        </div>
+                >
+                  {t("SymptomChecker.startAssessment")} →
+                </Link>
+              </div>
+            ))}
+          </div>)}
       </div>
     </main>
   );
