@@ -70,7 +70,7 @@ html.dark .dark\:to-slate-900 {
 
 html, body, *, *::before, *::after {
   transition-property: background-color, border-color, color, fill, stroke, box-shadow;
-  transition-duration: 700ms;
+  transition-duration: 400ms;
   transition-timing-function: ease-in-out;
 }
 
