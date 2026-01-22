@@ -20,6 +20,8 @@ const Emergency = lazy(() => import("@/pages/Emergency"));
 const EmergencyDetail = lazy(() => import("@/pages/EmergencyDetail"));
 const Assessment = lazy(() => import("@/pages/Assessment"));
 const AssessmentResult = lazy(() => import("@/pages/AssessmentResult"));
+import MobileTabBar from "@/components/MobileTabBar";
+import EmergencyFAB from "@/components/EmergencyFAB";
 
 /* ---------------- Loading Fallback ---------------- */
 
@@ -47,7 +49,7 @@ export default function App() {
         <BrowserRouter>
             <ScrollToTop/>
             {/* App shell */}
-            <div className="min-h-screen pb-16">
+            <div className="min-h-screen pb-16 sm:pb-0">
                 <Navbar/>
 
                 {/* Lazy-loaded routes */}
@@ -69,7 +71,13 @@ export default function App() {
                     </ErrorBoundary>
                 </Suspense>
 
-                <EmergencyBar/>
+                {/* Desktop emergency bar */}
+                <div className="hidden sm:block">
+                    <EmergencyBar/>
+                </div>
+                {/* Mobile navigation */}
+                <MobileTabBar/>
+                <EmergencyFAB/>
             </div>
         </BrowserRouter>
     );
