@@ -80,10 +80,10 @@ export default function Navbar() {
         function handleClickOutside(e) {
             if (
                 desktopLangOpen &&
-                    buttonRef.current &&   // desktop button only
-                    dropdownRef.current &&
-                    !dropdownRef.current.contains(e.target) &&
-                    !buttonRef.current.contains(e.target)
+                buttonRef.current &&   // desktop button only
+                dropdownRef.current &&
+                !dropdownRef.current.contains(e.target) &&
+                !buttonRef.current.contains(e.target)
             ) {
                 setDesktopLangOpen(false);
             }
@@ -125,16 +125,26 @@ export default function Navbar() {
     return (
         <header
             className={`
-        sticky top-0 z-50
-        backdrop-blur-md
-        transition-colors duration-300 ease-in-out
-        print-hide
-        ${
+    sticky top-0 z-50
+    transition-all duration-300 ease-in-out
+    print-hide
+
+    /* Desktop (unchanged) */
+    lg:backdrop-blur-md
+    ${
                 showDarkUI
-                    ? "bg-slate-900/70 border-b border-white/10 shadow-lg"
-                    : "bg-white/70 border-b border-white/30 shadow-lg"
+                    ? "lg:bg-slate-900/70 lg:border-b lg:border-white/10 lg:shadow-lg"
+                    : "lg:bg-white/70 lg:border-b lg:border-white/30 lg:shadow-lg"
             }
-      `}
+
+    /* Mobile glass */
+    backdrop-blur-xl
+    ${
+                showDarkUI
+                    ? "bg-[#1e1f20]/50 border-b border-gray-400/25 shadow-[0_8px_30px_rgba(255,255,255,0.12)]"
+                    : "bg-white/35 border-b border-white/60 shadow-[0_8px_25px_rgba(0.7,0.7,0.7,0.7)]"
+            }
+  `}
         >
             <div className="w-full px-6 lg:px-8 h-16 flex items-center justify-between">
                 {/* Logo */}
@@ -435,7 +445,7 @@ export default function Navbar() {
                         {/* Mobile Theme Toggle */}
                         <button
                             onClick={toggleTheme}
-                            className="material-symbols-rounded text-2xl"
+                            className="material-symbols-rounded text-2xl font-light"
                         >
                             {showDarkUI ? "dark_mode" : "light_mode"}
                         </button>

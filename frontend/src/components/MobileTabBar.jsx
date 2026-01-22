@@ -1,19 +1,19 @@
-import { Link, useLocation } from "react-router-dom";
-import { useTheme } from "../context/ThemeContext";
+import {Link, useLocation} from "react-router-dom";
+import {useTheme} from "../context/ThemeContext";
 
 const tabs = [
-    { label: "home", path: "/", icon: "home", color: "text-blue-500" },
-    { label: "analyze", path: "/symptom-analyzer", icon: "monitor_heart", color: "text-emerald-500" },
-    { label: "check", path: "/symptom-checker", icon: "stethoscope", color: "text-purple-500" },
-    { label: "diseases", path: "/diseases", icon: "menu_book", color: "text-orange-500" },
-    { label: "prevent", path: "/prevention", icon: "shield", color: "text-teal-500" },
-    { label: "clinics", path: "/clinics", icon: "location_on", color: "text-pink-500" },
-    { label: "emergency", path: "/emergency", icon: "emergency", color: "text-red-500" },
+    {label: "home", path: "/", icon: "home", color: "text-blue-500"},
+    {label: "analyze", path: "/symptom-analyzer", icon: "monitor_heart", color: "text-emerald-500"},
+    {label: "check", path: "/symptom-checker", icon: "stethoscope", color: "text-purple-500"},
+    {label: "diseases", path: "/diseases", icon: "menu_book", color: "text-orange-500"},
+    {label: "prevent", path: "/prevention", icon: "shield", color: "text-teal-500"},
+    {label: "clinics", path: "/clinics", icon: "location_on", color: "text-pink-500"},
+    {label: "emergency", path: "/emergency", icon: "emergency", color: "text-red-500"},
 ];
 
 export default function MobileTabBar() {
     const location = useLocation();
-    const { theme } = useTheme();
+    const {theme} = useTheme();
     const isDark = theme === "dark";
 
     return (
@@ -21,20 +21,32 @@ export default function MobileTabBar() {
             <div
                 className={`
           flex justify-around items-center
-          h-16 w-[95%]
+          h-16 w-[96%]
           rounded-4xl
           backdrop-blur-lg
           border
           transition-all duration-300
           ${
                     isDark
-                        ? "bg-[#1e1f20]/35 border-gray-300/15 shadow-[0_8px_30px_rgba(0.7,0.7,0.7,0.7)]"
+                        ? "bg-[#1e1f20]/50 border-gray-400/25 shadow-[0_8px_30px_rgba(255,255,255,0.12)]"
                         : "bg-white/35 border-white/60 shadow-[0_8px_25px_rgba(0.7,0.7,0.7,0.7)]"
                 }
         `}
             >
                 {tabs.map((tab) => {
-                    const active = location.pathname === tab.path;
+                    const path = location.pathname;
+
+                    const active =
+                        tab.path === "/symptom-checker"
+                            ? path.startsWith("/symptom-checker") || path.startsWith("/assessment")
+                            : tab.path === "/diseases"
+                                ? path.startsWith("/diseases")
+                                : tab.path === "/emergency"
+                                    ? path.startsWith("/emergency")
+                                    : tab.path === "/"
+                                        ? path === "/"
+                                        : path.startsWith(tab.path);
+
 
                     return (
                         <Link
@@ -47,8 +59,8 @@ export default function MobileTabBar() {
                                 <div
                                     className={`
             absolute top-0.5 left-0.5 right-0.5 bottom-1
-            rounded-4xl
-            backdrop-blur-xl
+            rounded-full
+            backdrop-blur-2xl
             ${
                                         isDark
                                             ? "bg-white/15"
@@ -76,7 +88,7 @@ export default function MobileTabBar() {
 
                             {/* Active dot */}
                             {active && (
-                                <div className="w-1.5 h-1.5 mt-0.5 bg-blue-500 rounded-full z-10" />
+                                <div className="w-1.5 h-1.5 mt-0.5 bg-blue-500 rounded-full z-10"/>
                             )}
                         </Link>
                     );
