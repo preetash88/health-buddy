@@ -356,11 +356,11 @@ export default function Navbar() {
                             onClick={() => setMobileLangOpen(prev => !prev)}
                             className={`
     flex items-center gap-1
-    px-2 py-1 rounded-lg
+    px-1 py-1 rounded-lg
     text-sm font-semibold
     ${
                                 showDarkUI
-                                    ? "bg-slate-900/90 border border-gray-300 shadow-amber-200 text-gray-300"
+                                    ? "bg-slate-900/90 border border-gray-500 shadow-amber-200 text-gray-300"
                                     : "bg-white text-gray-600 border border-gray-400 shadow-gray-700"
                             }
   `}

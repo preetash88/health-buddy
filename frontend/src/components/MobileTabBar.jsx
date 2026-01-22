@@ -1,6 +1,5 @@
-import {Link, useLocation} from "react-router-dom";
-import {Home, Activity, Stethoscope, BookOpen, Shield, MapPin, AlertCircle} from "lucide-react";
-import {useTheme} from "../context/ThemeContext";
+import { Link, useLocation } from "react-router-dom";
+import { useTheme } from "../context/ThemeContext";
 
 const tabs = [
     { label: "home", path: "/", icon: "home", color: "text-blue-500" },
@@ -12,55 +11,77 @@ const tabs = [
     { label: "emergency", path: "/emergency", icon: "emergency", color: "text-red-500" },
 ];
 
-
 export default function MobileTabBar() {
     const location = useLocation();
-    const {theme} = useTheme();
+    const { theme } = useTheme();
     const isDark = theme === "dark";
 
     return (
-        <div className="sm:hidden fixed bottom-0 left-0 right-0 z-[1000]">
+        <div className="sm:hidden fixed bottom-3.5 left-0 right-0 z-[1000] flex justify-center">
             <div
                 className={`
           flex justify-around items-center
-          h-16
-          backdrop-blur-xl
-          border-t
+          h-16 w-[95%]
+          rounded-4xl
+          backdrop-blur-lg
+          border
+          transition-all duration-300
           ${
                     isDark
-                        ? "bg-[#1e1f20]/90 border-white/10"
-                        : "bg-white/80 border-gray-200"
+                        ? "bg-[#1e1f20]/35 border-gray-300/15 shadow-[0_8px_30px_rgba(0.7,0.7,0.7,0.7)]"
+                        : "bg-white/35 border-white/60 shadow-[0_8px_25px_rgba(0.7,0.7,0.7,0.7)]"
                 }
         `}
             >
                 {tabs.map((tab) => {
-                    const Icon = tab.icon;
                     const active = location.pathname === tab.path;
 
                     return (
                         <Link
                             key={tab.path}
                             to={tab.path}
-                            className="flex flex-col items-center gap-1 mb-1"
+                            className="relative flex flex-col items-center justify-center w-12 h-14"
                         >
+                            {/* Active glass bubble */}
+                            {active && (
+                                <div
+                                    className={`
+            absolute top-0.5 left-0.5 right-0.5 bottom-1
+            rounded-4xl
+            backdrop-blur-xl
+            ${
+                                        isDark
+                                            ? "bg-white/15"
+                                            : "bg-black/10"
+                                    }
+            transition-all duration-300
+          `}
+                                />
+                            )}
+
                             <span
                                 className={`
-    material-symbols-rounded text-2xl
-    transition-all
-    ${tab.color}
-    ${active ? "scale-125" : "opacity-70"}
-  `}
+          material-symbols-rounded text-2xl z-10
+          transition-all duration-300
+          ${tab.color}
+          ${
+                                    active
+                                        ? "scale-125 drop-shadow-[0_0_12px_currentColor]"
+                                        : "opacity-70"
+                                }
+        `}
                             >
-  {tab.icon}
-</span>
+        {tab.icon}
+      </span>
 
-
+                            {/* Active dot */}
                             {active && (
-                                <div className="w-1.5 h-1.5 mb bg-blue-500 rounded-full"/>
+                                <div className="w-1.5 h-1.5 mt-0.5 bg-blue-500 rounded-full z-10" />
                             )}
                         </Link>
                     );
                 })}
+
             </div>
         </div>
     );
