@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { Link, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 // 1. IMPORT THE HOOK
@@ -327,6 +328,99 @@ export default function Navbar() {
           </button>
         </div>
       </div>
+
+      {/* Mobile Menu Panel */}
+      {open &&
+        createPortal(
+          <div className="lg:hidden fixed inset-0 z-[9999] isolate">
+            {/* Backdrop */}
+            <div
+              className="absolute inset-0 bg-black/50 backdrop-blur-md"
+              onClick={() => setOpen(false)}
+            />
+
+            {/* Panel */}
+            <div
+              className={`
+        absolute top-0 right-0 h-full w-80
+        p-6 flex flex-col
+        shadow-2xl
+        transition-transform duration-300
+        ${showDarkUI ? "bg-[#1e1f20]" : "bg-white"}
+      `}
+              style={{ opacity: 1 }}
+            >
+              <div className="mb-6">
+                <h3 className="text-lg font-semibold">Menu</h3>
+              </div>
+
+              <div className="flex flex-col gap-2 flex-1">
+                {navItems.map((item, i) => {
+                  const Icon = item.icon;
+                  return (
+                    <Link
+                      key={item.key}
+                      to={item.path}
+                      onClick={() => setOpen(false)}
+                      className={`
+                group flex items-center gap-3
+                px-4 py-3 rounded-xl text-sm font-medium
+                transition-all duration-200
+                ${
+                  showDarkUI
+                    ? "text-gray-200 hover:bg-white/10"
+                    : "text-gray-700 hover:bg-gray-100"
+                }
+              `}
+                      style={{ animationDelay: `${i * 40}ms` }}
+                    >
+                      <div
+                        className={`
+                  w-9 h-9 rounded-lg flex items-center justify-center
+                  ${
+                    showDarkUI
+                      ? "bg-white/10 group-hover:bg-blue-500"
+                      : "bg-blue-100 group-hover:bg-blue-500"
+                  }
+                  transition-colors
+                `}
+                      >
+                        <Icon
+                          size={18}
+                          className={
+                            showDarkUI
+                              ? "text-blue-400 group-hover:text-white"
+                              : "text-blue-600 group-hover:text-white"
+                          }
+                        />
+                      </div>
+
+                      <span>{t(item.key)}</span>
+                    </Link>
+                  );
+                })}
+              </div>
+
+              {/* Language */}
+              <div className="border-t pt-4">
+                <p className="text-xs mb-2 opacity-60">Language</p>
+                {languages.map((lang) => (
+                  <button
+                    key={lang.code}
+                    onClick={() => {
+                      changeLanguage(lang.code);
+                      setOpen(false);
+                    }}
+                    className="block w-full text-left py-2 text-sm hover:underline"
+                  >
+                    {lang.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>,
+          document.getElementById("overlay-root"),
+        )}
     </header>
   );
 }

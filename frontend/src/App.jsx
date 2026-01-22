@@ -1,6 +1,6 @@
-import { Suspense, lazy, useEffect } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { useTranslation } from "react-i18next";
+import {Suspense, lazy, useEffect} from "react";
+import {BrowserRouter, Routes, Route} from "react-router-dom";
+import {useTranslation} from "react-i18next";
 
 import Navbar from "@/components/Navbar";
 import EmergencyBar from "@/components/EmergencyBar";
@@ -24,50 +24,53 @@ const AssessmentResult = lazy(() => import("@/pages/AssessmentResult"));
 /* ---------------- Loading Fallback ---------------- */
 
 function PageLoader() {
-  const { t } = useTranslation();
+    const {t} = useTranslation();
 
-  return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-white dark:bg-white">
-      <div className="w-8 h-8 rounded-full border-2 border-gray-300 border-t-black animate-spin mb-3" />
-      <p className="text-sm text-gray-500">{t("loading")}</p>
-    </div>
-  );
+    return (
+        <div className="min-h-screen flex flex-col items-center justify-center bg-white dark:bg-white">
+            <div className="w-8 h-8 rounded-full border-2 border-gray-300 border-t-black animate-spin mb-3"/>
+            <p className="text-sm text-gray-500">{t("loading")}</p>
+        </div>
+    );
 }
 
 /* ---------------- App ---------------- */
 
 export default function App() {
-  const { i18n } = useTranslation();
+    const {i18n} = useTranslation();
 
-  useEffect(() => {
-    document.documentElement.dir = i18n.dir();
-  }, [i18n.language]);
+    useEffect(() => {
+        document.documentElement.dir = i18n.dir();
+    }, [i18n.language]);
 
-  return (
-    <BrowserRouter>
-      <ScrollToTop />
-      <Navbar />
+    return (
+        <BrowserRouter>
+            <ScrollToTop/>
+            {/* App shell */}
+            <div className="min-h-screen pb-16">
+                <Navbar/>
 
-      {/* Lazy-loaded routes */}
-      <Suspense fallback={<PageLoader />}>
-        <ErrorBoundary>
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/symptom-analyzer" element={<SymptomAnalyzer />} />
-            <Route path="/symptom-checker" element={<SymptomChecker />} />
-            <Route path="/diseases" element={<Diseases />} />
-            <Route path="/diseases/:name" element={<DiseaseDetails />} />
-            <Route path="/prevention" element={<Prevention />} />
-            <Route path="/clinics" element={<FindClinics />} />
-            <Route path="/emergency" element={<Emergency />} />
-            <Route path="/emergency/:slug" element={<EmergencyDetail />} />
-            <Route path="/assessment/:disease" element={<Assessment />} />
-            <Route path="/assessment-result" element={<AssessmentResult />} />
-          </Routes>
-        </ErrorBoundary>
-      </Suspense>
+                {/* Lazy-loaded routes */}
+                <Suspense fallback={<PageLoader/>}>
+                    <ErrorBoundary>
+                        <Routes>
+                            <Route path="/" element={<HomePage/>}/>
+                            <Route path="/symptom-analyzer" element={<SymptomAnalyzer/>}/>
+                            <Route path="/symptom-checker" element={<SymptomChecker/>}/>
+                            <Route path="/diseases" element={<Diseases/>}/>
+                            <Route path="/diseases/:name" element={<DiseaseDetails/>}/>
+                            <Route path="/prevention" element={<Prevention/>}/>
+                            <Route path="/clinics" element={<FindClinics/>}/>
+                            <Route path="/emergency" element={<Emergency/>}/>
+                            <Route path="/emergency/:slug" element={<EmergencyDetail/>}/>
+                            <Route path="/assessment/:disease" element={<Assessment/>}/>
+                            <Route path="/assessment-result" element={<AssessmentResult/>}/>
+                        </Routes>
+                    </ErrorBoundary>
+                </Suspense>
 
-      <EmergencyBar />
-    </BrowserRouter>
-  );
+                <EmergencyBar/>
+            </div>
+        </BrowserRouter>
+    );
 }
