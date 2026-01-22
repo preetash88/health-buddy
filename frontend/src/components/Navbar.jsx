@@ -12,8 +12,6 @@ import {
     Shield,
     MapPin,
     AlertCircle,
-    Menu,
-    X,
     ChevronDown,
     Sun,
     Moon,
@@ -54,46 +52,70 @@ const languages = [
 
 export default function Navbar() {
     const [open, setOpen] = useState(false);
-    const [langOpen, setLangOpen] = useState(false);
+    const [desktopLangOpen, setDesktopLangOpen] = useState(false);
+    const [mobileLangOpen, setMobileLangOpen] = useState(false);
+
     const location = useLocation();
     const {t, i18n} = useTranslation();
-
-    // 2. USE THE CONTEXT (Replaces all local state & cookie logic)
     const {theme, toggleTheme} = useTheme();
 
-    // 3. Derive UI state from Context
     const isDark = theme === "dark";
     const showDarkUI = isDark;
 
     const dropdownRef = useRef(null);
     const buttonRef = useRef(null);
 
+    const mobileDropdownRef = useRef(null);
+    const mobileButtonRef = useRef(null);
+
     const changeLanguage = (code) => {
         i18n.changeLanguage(code);
         localStorage.setItem("lang", code);
-        setLangOpen(false);
+        setDesktopLangOpen(false);
+        setMobileLangOpen(false)
     };
 
+    //Desktop outside click only
     useEffect(() => {
         function handleClickOutside(e) {
             if (
-                langOpen &&
-                dropdownRef.current &&
-                !dropdownRef.current.contains(e.target) &&
-                buttonRef.current &&
-                !buttonRef.current.contains(e.target)
+                desktopLangOpen &&
+                    buttonRef.current &&   // desktop button only
+                    dropdownRef.current &&
+                    !dropdownRef.current.contains(e.target) &&
+                    !buttonRef.current.contains(e.target)
             ) {
-                setLangOpen(false);
+                setDesktopLangOpen(false);
             }
         }
 
         document.addEventListener("mousedown", handleClickOutside);
         return () => document.removeEventListener("mousedown", handleClickOutside);
-    }, [langOpen]);
+    }, [desktopLangOpen]);
+
+    // Mobile outside click only
+    useEffect(() => {
+        function handleMobileClickOutside(e) {
+            if (
+                mobileLangOpen &&
+                mobileButtonRef.current &&
+                mobileDropdownRef.current &&
+                !mobileDropdownRef.current.contains(e.target) &&
+                !mobileButtonRef.current.contains(e.target)
+            ) {
+                setMobileLangOpen(false);
+            }
+        }
+
+        document.addEventListener("mousedown", handleMobileClickOutside);
+        return () =>
+            document.removeEventListener("mousedown", handleMobileClickOutside);
+    }, [mobileLangOpen]);
+
 
     useEffect(() => {
         function handleKeyDown(e) {
-            if (e.key === "Escape") setLangOpen(false);
+            if (e.key === "Escape") setDesktopLangOpen(false);
         }
 
         document.addEventListener("keydown", handleKeyDown);
@@ -215,7 +237,7 @@ export default function Navbar() {
                     <div className="relative hidden sm:block">
                         <button
                             ref={buttonRef}
-                            onClick={() => setLangOpen((v) => !v)}
+                            onClick={() => setDesktopLangOpen((v) => !v)}
                             className={`
                 flex items-center gap-2
                 h-10 px-4 cursor-pointer
@@ -230,17 +252,17 @@ export default function Navbar() {
                             }
               `}
                             aria-haspopup="listbox"
-                            aria-expanded={langOpen}
+                            aria-expanded={desktopLangOpen}
                         >
                             {languages.find((l) => l.code === i18n.language)?.label ||
                                 "Language"}
                             <ChevronDown
                                 size={14}
-                                className={`transition-transform duration-300 ${langOpen ? "rotate-180" : ""}`}
+                                className={`transition-transform duration-300 ${desktopLangOpen ? "rotate-180" : ""}`}
                             />
                         </button>
 
-                        {langOpen && (
+                        {desktopLangOpen && (
                             <div
                                 ref={dropdownRef}
                                 className={`
@@ -326,28 +348,29 @@ export default function Navbar() {
                     {/* ********************************************************************************* */}
 
 
-
                     {/* Mobile Controls */}
                     <div className="lg:hidden flex items-center gap-2">
                         {/* Mobile Language */}
                         <button
-                            onClick={(e) => {
-                                e.stopPropagation();
-                                setLangOpen((prev) => !prev);
-                            }}
-                            className="
+                            ref={mobileButtonRef}
+                            onClick={() => setMobileLangOpen(prev => !prev)}
+                            className={`
     flex items-center gap-1
-    px-1 py-1 rounded-lg border border-gray-500
+    px-2 py-1 rounded-lg
     text-sm font-semibold
-    bg-blue-500/10 text-gray-300
-  "
+    ${
+                                showDarkUI
+                                    ? "bg-slate-900/90 border border-gray-300 shadow-amber-200 text-gray-300"
+                                    : "bg-white text-gray-600 border border-gray-400 shadow-gray-700"
+                            }
+  `}
                         >
                             {i18n.language.toUpperCase()}
                             <span
                                 className={`
       material-symbols-rounded text-lg
       transition-transform duration-300
-      ${langOpen ? "rotate-180" : ""}
+      ${mobileLangOpen ? "rotate-180" : ""}
     `}
                             >
     expand_more
@@ -356,15 +379,14 @@ export default function Navbar() {
 
 
                         <div className="lg:hidden flex items-center gap-2">
-                            {langOpen && (
+                            {mobileLangOpen && (
                                 <div
-                                    ref={dropdownRef}
-                                    onClick={(e) => e.stopPropagation()}
+                                    ref={mobileDropdownRef}
                                     className={`
-      absolute top-16 right-4 w-24
-      border rounded-lg shadow-lg z-50
-      backdrop-blur-lg
-      animate-fade-in
+      fixed top-16 right-4 w-24
+      border rounded-lg shadow-lg z-[9999]
+      backdrop-blur-lg animate-fade-in
+      pointer-events-auto
       ${
                                         showDarkUI
                                             ? "bg-slate-900/90 border-white/10"
@@ -377,7 +399,7 @@ export default function Navbar() {
                                             key={lang.code}
                                             onClick={() => {
                                                 changeLanguage(lang.code);
-                                                setLangOpen(false);
+                                                setMobileLangOpen(false);
                                             }}
                                             className={`
     w-full text-left px-4 py-2 text-sm
