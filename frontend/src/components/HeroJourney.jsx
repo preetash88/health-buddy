@@ -1,81 +1,153 @@
 import { Activity } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { motion, useScroll, useTransform } from "framer-motion";
 
 export default function HeroJourney() {
   const navigate = useNavigate();
   const { t } = useTranslation();
 
-  return (
-    <section className="relative w-full overflow-hidden isolate">
-      {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-r from-blue-600 via-blue-500 to-green-500 dark:opacity-90 transition-opacity duration-300" />
+  const { scrollY } = useScroll();
 
-      {/* Background image overlay */}
-      <div
-        className="absolute inset-0 opacity-15 bg-cover bg-center mix-blend-overlay"
-        style={{
-          backgroundImage:
-            "url('https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=1600')",
-        }}
+  // Scroll physics
+  const y = useTransform(scrollY, [0, 500], [0, -180]);
+  const scale = useTransform(scrollY, [0, 500], [1, 1.18]);
+
+  return (
+    <motion.section
+      style={{ y, scale }}
+      className="relative w-full min-h-screen overflow-hidden isolate"
+    >
+      {/* LIVING BACKDROP */}
+      <div className="absolute inset-0 -z-10">
+        <motion.div
+          animate={{ rotate: 360 }}
+          transition={{ duration: 120, repeat: Infinity, ease: "linear" }}
+          className="absolute w-[1200px] h-[1200px]
+                     bg-gradient-to-r from-blue-500/40
+                     via-cyan-400/40 to-emerald-400/40
+                     blur-[140px] rounded-full
+                     top-[-500px] left-[-400px]"
+        />
+
+        <motion.div
+          animate={{ rotate: -360 }}
+          transition={{ duration: 160, repeat: Infinity, ease: "linear" }}
+          className="absolute w-[1000px] h-[1000px]
+                     bg-gradient-to-r from-indigo-500/30
+                     via-fuchsia-400/30 to-pink-400/30
+                     blur-[160px] rounded-full
+                     bottom-[-400px] right-[-300px]"
+        />
+
+        <div
+          className="absolute inset-0 opacity-10 mix-blend-overlay"
+          style={{
+            backgroundImage:
+              "url('https://www.transparenttextures.com/patterns/noise.png')",
+          }}
+        />
+      </div>
+
+      {/* HERO IMAGE */}
+      <img
+        src="/src/assets/heroJourney5.png"
+        alt="Medical diagnostic device"
+        className="
+          hero-image
+          absolute top-0 right-0
+          h-full w-full
+          object-cover
+          object-[70%_50%] sm:object-[50%_50%]
+          pointer-events-none
+          select-none
+          z-0
+        "
       />
 
-      {/* Content */}
-      <div className="relative z-10 max-w-5xl mx-auto px-6 py-20 text-center text-white">
-        {/* Badge */}
-        <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-white/20 backdrop-blur-sm border border-white/10 text-sm mb-6 shadow-sm">
+      {/* CONTENT */}
+      <div className="relative z-10 max-w-5xl mx-auto px-6 py-10 text-center text-gray-200">
+        <motion.div
+          initial={{ opacity: 0, y: 30, scale: 0.8 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ delay: 0.2, duration: 0.8 }}
+          className="inline-flex items-center gap-2 px-3 py-1 rounded-full font-semibold
+                     bg-white/20 backdrop-blur-sm border border-gray-300
+                     text-sm mb-6 shadow-sm"
+        >
           ✨ {t("HeroJourney.badge")}
-        </div>
+        </motion.div>
 
-        {/* Heading */}
-        <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold leading-tight drop-shadow-sm dark:text-gray-300">
+        <motion.h1
+          initial={{ opacity: 0, y: 60, scale: 0.9 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ delay: 0.4, duration: 1, ease: [0.22, 1, 0.36, 1] }}
+          className="text-4xl sm:text-5xl md:text-6xl font-bold leading-tight"
+        >
           {t("HeroJourney.headingLine1")}
-          <span className="block text-lime-300 mt-2 drop-shadow-md">
+          <span className="block text-green-500 mt-2">
             {t("HeroJourney.headingLine2")}
           </span>
-        </h1>
+        </motion.h1>
 
-        {/* Description */}
-        <p className="mt-6 max-w-3xl mx-auto text-lg text-white/90 font-medium">
+        <motion.p
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.7, duration: 0.8 }}
+          className="mt-6 max-w-3xl mx-auto text-lg font-medium"
+        >
           {t("HeroJourney.description")}
-        </p>
+        </motion.p>
 
-        {/* CTA */}
-        <div className="mt-10 flex justify-center">
-          <button
+        <motion.div
+          initial={{ opacity: 0, scale: 0.6 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{
+            delay: 1,
+            type: "spring",
+            stiffness: 140,
+            damping: 12,
+          }}
+          className="mt-10 flex justify-center"
+        >
+          <motion.button
+            whileHover={{
+              y: -6,
+              scale: 1.08,
+              boxShadow: "0 30px 60px rgba(37,99,235,0.4)",
+            }}
+            whileTap={{ scale: 0.92 }}
             onClick={() => navigate("/symptom-checker")}
             className="
               inline-flex items-center gap-2
-              bg-white text-blue-600
-              px-6 py-3 rounded-xl font-bold
-              shadow-lg
-              transition-all duration-300 ease-out
-              hover:scale-110 hover:-translate-y-0.5
-              hover:shadow-[0_20px_40px_rgba(37,99,235,0.25)]
-              active:scale-95 cursor-pointer
-              dark:bg-gray-200 dark:shadow-gray-700
+              bg-white text-blue-600 border border-gray-400
+              px-7 py-2 rounded-xl font-bold cursor-pointer hover:bg-green-500 hover:text-white
+              shadow-2xl
             "
           >
             <Activity className="w-5 h-5" />
             {t("HeroJourney.cta")}
-          </button>
-        </div>
+          </motion.button>
+        </motion.div>
       </div>
 
-      {/* ✅ Seamless fade into REAL page background */}
+      {/* BOTTOM FADE */}
       <div
-        className="absolute bottom-0 left-0 right-0 h-48 pointer-events-none"
+        className="absolute bottom-0 left-0 right-0 h-70 pointer-events-none
+             bg-gradient-to-t
+             from-black/30 via-black/10 to-transparent
+             dark:from-black/50 dark:via-black/20"
         style={{
           backgroundImage: `
-      linear-gradient(
-        to top,
-        var(--page-bg) 0%,
-        color-mix(in srgb, var(--page-bg) 85%, transparent) 40%,
-        transparent 100%
-      )
-    `,
+            linear-gradient(
+              to top,
+              var(--page-bg) 0%,
+              color-mix(in srgb, var(--page-bg) 85%, transparent) 40%,
+              transparent 100%
+            )
+          `,
         }}
       />
-    </section>
+    </motion.section>
   );
 }

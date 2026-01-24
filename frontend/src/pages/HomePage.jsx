@@ -4,6 +4,19 @@ import Features from "../components/Features"
 import WhyChoose from "../components/WhyChoose"
 import CTASection from "../components/CTASection"
 import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+
+const fadeInUp = {
+  initial: { opacity: 0, y: 30 },
+  animate: { opacity: 1, y: 0, transition: { duration: 0.6 } },
+};
+
+const staggerContainer = {
+  initial: {},
+  animate: {
+    transition: { staggerChildren: 0.15 },
+  },
+};
 
 export default function HomePage() {
     const [showTop, setShowTop] = useState(false);
@@ -30,10 +43,49 @@ export default function HomePage() {
     return (
       <div className="relative">
         <HeroJourney />
-        <HeroStats />
-        <Features />
-        <WhyChoose />
-        <CTASection />
+        {/* Stats with scroll-trigger animation */}
+        <section>
+          <motion.div
+            variants={staggerContainer}
+            initial="initial"
+            whileInView="animate"
+            viewport={{ once: true, amount: 0.5 }}
+          >
+            <HeroStats />
+          </motion.div>
+        </section>
+        <section>
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0, transition: { duration: 0.6 } }}
+            viewport={{ once: true, amount: 0.3 }}
+          >
+            <Features />
+          </motion.div>
+        </section>
+        <section>
+          <motion.div
+            variants={staggerContainer}
+            initial="initial"
+            whileInView="animate"
+            viewport={{ once: true, amount: 0.5 }}
+          >
+            <WhyChoose />
+          </motion.div>
+        </section>
+        <section>
+          <motion.div
+            variants={staggerContainer}
+            initial="initial"
+            whileInView="animate"
+            viewport={{ once: true, amount: 0.5 }}
+          >
+            <CTASection />
+          </motion.div>
+        </section>
+
+        {/* <WhyChoose />
+        <CTASection /> */}
         {/* Mobile Scroll Helpers */}
         <div className="sm:hidden pointer-events-none">
           {showTop && (
