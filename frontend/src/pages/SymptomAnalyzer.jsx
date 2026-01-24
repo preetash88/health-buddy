@@ -307,7 +307,7 @@ export default function SymptomAnalyzer() {
   return (
     // FIX: Changed bg-linear-to-b (invalid) to bg-gradient-to-b (valid)
     <main
-      className="min-h-screen pt-10 pb-32 transition-colors duration-300 
+      className="min-h-screen pt-24 pb-32 transition-colors duration-300 
       bg-gradient-to-b from-slate-50 to-white 
       dark:from-slate-950 dark:to-slate-900"
     >

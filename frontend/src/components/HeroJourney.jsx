@@ -8,65 +8,62 @@ export default function HeroJourney() {
   const { t } = useTranslation();
 
   const { scrollY } = useScroll();
-
-  // Scroll physics
   const y = useTransform(scrollY, [0, 500], [0, -180]);
   const scale = useTransform(scrollY, [0, 500], [1, 1.18]);
 
   return (
-    <motion.section
-      style={{ y, scale }}
-      className="relative w-full min-h-screen overflow-hidden isolate"
-    >
-      {/* LIVING BACKDROP */}
-      <div className="absolute inset-0 -z-10">
-        <motion.div
-          animate={{ rotate: 360 }}
-          transition={{ duration: 120, repeat: Infinity, ease: "linear" }}
-          className="absolute w-[1200px] h-[1200px]
-                     bg-gradient-to-r from-blue-500/40
-                     via-cyan-400/40 to-emerald-400/40
-                     blur-[140px] rounded-full
-                     top-[-500px] left-[-400px]"
+    <section className="relative w-full min-h-[100svh] overflow-hidden isolate">
+      
+      {/* TRANSFORMED VISUAL LAYER ONLY */}
+      <motion.div
+        style={{ y, scale }}
+        className="absolute inset-0"
+      >
+        {/* LIVING BACKDROP */}
+        <div className="absolute inset-0 -z-10">
+          <motion.div
+            animate={{ rotate: 360 }}
+            transition={{ duration: 120, repeat: Infinity, ease: "linear" }}
+            className="absolute w-[1200px] h-[1200px]
+                       bg-gradient-to-r from-blue-500/40
+                       via-cyan-400/40 to-emerald-400/40
+                       blur-[140px] rounded-full
+                       will-change-transform
+                       top-[-500px] left-[-400px]"
+          />
+
+          <motion.div
+            animate={{ rotate: -360 }}
+            transition={{ duration: 160, repeat: Infinity, ease: "linear" }}
+            className="absolute w-[1000px] h-[1000px]
+                       bg-gradient-to-r from-indigo-500/30
+                       via-fuchsia-400/30 to-pink-400/30
+                       blur-[160px] rounded-full
+                       will-change-transform
+                       bottom-[-400px] right-[-300px]"
+          />
+
+          <div
+            className="absolute inset-0 opacity-10 mix-blend-overlay"
+            style={{
+              backgroundImage:
+                "url('https://www.transparenttextures.com/patterns/noise.png')",
+            }}
+          />
+        </div>
+
+        {/* HERO IMAGE */}
+        <img
+          src="/src/assets/heroJourney5.png"
+          alt="Medical diagnostic device"
+          className="absolute top-0 right-0 h-full w-full object-cover
+                     object-[70%_50%] sm:object-[50%_50%]
+                     pointer-events-none select-none"
         />
+      </motion.div>
 
-        <motion.div
-          animate={{ rotate: -360 }}
-          transition={{ duration: 160, repeat: Infinity, ease: "linear" }}
-          className="absolute w-[1000px] h-[1000px]
-                     bg-gradient-to-r from-indigo-500/30
-                     via-fuchsia-400/30 to-pink-400/30
-                     blur-[160px] rounded-full
-                     bottom-[-400px] right-[-300px]"
-        />
-
-        <div
-          className="absolute inset-0 opacity-10 mix-blend-overlay"
-          style={{
-            backgroundImage:
-              "url('https://www.transparenttextures.com/patterns/noise.png')",
-          }}
-        />
-      </div>
-
-      {/* HERO IMAGE */}
-      <img
-        src="/src/assets/heroJourney5.png"
-        alt="Medical diagnostic device"
-        className="
-          hero-image
-          absolute top-0 right-0
-          h-full w-full
-          object-cover
-          object-[70%_50%] sm:object-[50%_50%]
-          pointer-events-none
-          select-none
-          z-0
-        "
-      />
-
-      {/* CONTENT */}
-      <div className="relative z-10 max-w-5xl mx-auto px-6 py-10 text-center text-gray-200">
+      {/* STATIC CONTENT LAYER */}
+      <div className="relative z-10 max-w-5xl mx-auto px-6 py-24 lg:py-28 text-center text-gray-200">
         <motion.div
           initial={{ opacity: 0, y: 30, scale: 0.8 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -148,6 +145,6 @@ export default function HeroJourney() {
           `,
         }}
       />
-    </motion.section>
+    </section>
   );
 }

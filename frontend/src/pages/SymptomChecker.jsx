@@ -74,7 +74,7 @@ useEffect(() => {
     // FIX: bg-linear-to-b -> bg-gradient-to-b (valid Tailwind class)
     // DARK MODE: Main background changes to dark slate
     <main
-      className="min-h-screen pt-10 pb-32 transition-colors duration-300
+      className="min-h-screen pt-24 pb-32 transition-colors duration-300
       bg-gradient-to-b from-slate-50 to-white 
       dark:from-slate-950 dark:to-slate-900"
     >

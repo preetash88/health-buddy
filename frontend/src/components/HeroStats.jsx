@@ -47,7 +47,7 @@ export default function HeroStats() {
   const stats = t("HeroStats.items", { returnObjects: true });
 
   return (
-    <section className="relative z-20 -mt-59 sm:-mt-80 pb-20">
+    <section className="relative z-20 pb-20">
       <div className="max-w-7xl mx-auto px-6">
         <div
           className="grid grid-cols-2 lg:grid-cols-4

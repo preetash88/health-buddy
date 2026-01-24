@@ -158,7 +158,7 @@ export default function Navbar() {
   return (
     <header
       className={`
-    sticky top-0 z-50 h-16
+    fixed top-0 left-0 right-0 z-50 h-16
     print-hide
 
     /* Desktop stays same */
