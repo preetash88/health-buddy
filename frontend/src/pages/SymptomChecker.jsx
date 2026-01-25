@@ -8,8 +8,6 @@ import SkeletonSymptomChecker from "@/components/skeletons/SkeletonSymptomChecke
 export default function SymptomChecker() {
   const { t, ready } = useTranslation();
 
-  if (!ready) return <SkeletonSymptomChecker />;
-
   const [showTop, setShowTop] = useState(false);
   const [showBottom, setShowBottom] = useState(false);
 
@@ -71,6 +69,8 @@ export default function SymptomChecker() {
       (activeCategory === "all" || d.category === activeCategory) &&
       d.name.toLowerCase().includes(search.toLowerCase()),
   );
+
+  if (!ready) return <SkeletonSymptomChecker />;
 
   const grid = {
     hidden: {},
