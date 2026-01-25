@@ -97,7 +97,7 @@ export default function AssessmentResult() {
   return (
     // DARK MODE: Main background transitions
     <main
-      className="min-h-screen pt-10 pb-32 transition-colors duration-300
+      className="min-h-screen pt-24 pb-32 transition-colors duration-300
       bg-gradient-to-b from-slate-50 to-white 
       dark:from-slate-950 dark:to-slate-900"
     >

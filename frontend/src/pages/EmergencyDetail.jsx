@@ -49,7 +49,7 @@ export default function EmergencyDetail() {
 
   if (!card || !details) {
     return (
-      <main className="min-h-screen bg-slate-50 pt-10 px-4 dark:bg-slate-900">
+      <main className="min-h-screen bg-slate-50 pt-24 px-4 dark:bg-slate-900">
         <div className="max-w-5xl mx-auto bg-white p-8 rounded-2xl shadow-lg text-center dark:bg-[#1e293b]">
           <AlertTriangle className="w-10 h-10 text-orange-500 mx-auto mb-4" />
           <h2 className="text-xl font-bold mb-2 dark:text-white">
