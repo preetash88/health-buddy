@@ -44,10 +44,24 @@ function AnimatedCounter({ value }) {
 
 export default function HeroStats() {
   const { t } = useTranslation();
+  // Ensure stats is an array to prevent crashes if translation fails
+  const statsRaw = t("HeroStats.items", { returnObjects: true });
   const stats = t("HeroStats.items", { returnObjects: true });
 
   return (
-    <section className="relative z-20 pb-20">
+    <section
+      className="relative z-20 
+        /* Spacing & Layout Fixes */
+        pb-20 
+        
+        /* MOBILE: Use Padding-Top to push content down internally 
+           This clears the CTA button without adding an external gap (margin) */
+        pt-12 mt-0
+        
+        /* DESKTOP: Remove padding, use Margin for cleaner separation */
+        sm:pt-0 
+        sm:mt-16  /* Increased from 10 to 16 for better Laptop clearance */"
+    >
       <div className="max-w-7xl mx-auto px-6">
         <div
           className="grid grid-cols-2 lg:grid-cols-4

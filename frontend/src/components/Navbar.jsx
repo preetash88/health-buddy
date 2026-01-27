@@ -142,7 +142,7 @@ export default function Navbar() {
     }
   `}
     >
-      <div className="w-full px-3 sm:px-6 lg:px-8 h-16 flex items-center justify-start lg:justify-between">
+      <div className="w-full h-full max-w-[1920px] mx-auto px-4 flex items-center justify-between gap-4">
         {/* Logo */}
         <Link
           to="/"
@@ -189,9 +189,9 @@ export default function Navbar() {
           role="navigation" // ✅ explicit nav landmark
           aria-label="Primary"
           data-testid="navbar-desktop"
-          className="hidden lg:flex"
+          className="hidden lg:flex items-center justify-center flex-1 px-4"
         >
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1 xl:gap-2">
             {memoNavItems.map((item) => {
               const Icon = item.icon;
               const isActive =
@@ -201,7 +201,7 @@ export default function Navbar() {
 
               const baseClasses = `
                 flex items-center gap-2
-                h-10 px-3 xl:px-4
+                h-10 lg:px-3 xl:px-4
                 rounded-lg
                 text-sm whitespace-nowrap
                 transition-all duration-300 ease-in-out
