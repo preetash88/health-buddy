@@ -123,11 +123,11 @@ export default function Navbar() {
           onClick={() => requestAnimationFrame(() => window.scrollTo(0, 0))}
         >
           <div
-            className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl flex items-center justify-center shadow-md"
+            className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl flex items-center justify-center shadow-xl border border-gray-300"
             style={{ background: "linear-gradient(135deg, #4F8CFF, #34D399)" }}
           >
             <img
-                src="/logo.png"
+                src="/app_logo.png"
                 alt="Rurivia AI Logo"
                 className="w-full h-full object-contain "
                 draggable={false}
